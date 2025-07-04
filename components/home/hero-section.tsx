@@ -30,7 +30,7 @@ export function HeroSection({ onNavigate }: HeroSectionProps) {
         <AnimatedSection animation="fadeUp">
           <h1 className="text-6xl md:text-8xl font-bold tracking-[0.1em] mb-6">DESIGNA</h1>
           <p className="text-xl md:text-2xl font-light mb-8 max-w-2xl mx-auto leading-relaxed">
-            Design and art agency specializing in game assets and development
+            Creating immersive game art and 3D assets.
           </p>
           <Button
             onClick={() => onNavigate("works")}

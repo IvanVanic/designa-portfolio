@@ -45,7 +45,7 @@ export function WorkshopsPreviewSection() {
         <AnimatedSection className="text-center mb-10">
           <h2 className="text-4xl md:text-5xl font-bold text-[#393E41] mb-4">Learn With Us</h2>
           <p className="text-lg text-[#393E41]/70 max-w-2xl mx-auto">
-            Upcoming hands-on workshops designed to boost your skills.
+            Hands-on workshops designed to level you up.
           </p>
         </AnimatedSection>
 

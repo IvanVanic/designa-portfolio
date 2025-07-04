@@ -74,8 +74,7 @@ export function AboutSection() {
                 <CardContent className="p-12">
                   <h3 className="text-xl font-bold text-[#393E41] mb-4">Our Experience</h3>
                   <p className="text-base text-[#393E41] leading-relaxed">
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor
-                    incididunt ut labore et dolore magna aliqua.
+                    Founded in the City of Flow in the enourmous 2025, Designa is a small team of artists focused on game art, 3D assets, and concept design. We're passionate about gaming, back pain and good coffee.
                   </p>
                 </CardContent>
               </Card>

@@ -17,7 +17,7 @@ export function MentorshipSection() {
             <p className="text-sm tracking-wide text-[#44BBA4] uppercase">1-on-1 Mentorship</p>
           </span>
           <h2 className="text-4xl sm:text-5xl md:text-6xl font-bold text-[#393E41] mb-6">
-            Personalised Guidance From Industry Pros
+            Personal guidance from the Pros.
           </h2>
           <p className="max-w-3xl mx-auto text-lg sm:text-xl text-[#393E41]/80">
             Accelerate your growth as a game artist with tailored sessions focused on your goals,

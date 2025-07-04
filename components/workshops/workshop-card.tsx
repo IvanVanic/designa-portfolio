@@ -63,8 +63,8 @@ export function WorkshopCard({ workshop, category, onDetails }: WorkshopCardProp
             <h3 className="text-xl font-bold mb-3 group-hover:scale-105 transition-transform duration-300 min-h-[3rem] flex items-center">
               {workshop.title}
             </h3>
-            <div className="flex items-start space-x-2 text-white/90">
-              <Calendar className="w-5 h-5 mt-0.5 flex-shrink-0" />
+            <div className="flex items-center space-x-2 text-white/90">
+              <Calendar className="w-5 h-5 flex-shrink-0" />
               <div className="flex flex-col">
                 <span className="text-sm font-medium">Start: {formatDate(startDateStr)}</span>
                 <span className="text-sm font-medium">

@@ -30,7 +30,7 @@ export function GallerySection({ artworks, isLoading, onSelect }: GallerySection
         <AnimatedSection className="text-center mb-16">
           <h2 className="text-4xl md:text-5xl font-bold text-[#393E41] mb-4">Our Works</h2>
           <p className="text-xl text-[#393E41]/70 max-w-2xl mx-auto">
-            Explore our collection of game art, character designs, and digital creations
+            See our latest game art, characters, and digital designs.
           </p>
         </AnimatedSection>
 
