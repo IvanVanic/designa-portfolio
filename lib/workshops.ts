@@ -4,7 +4,6 @@
  */
 
 import workshopsData from "@/data/workshops.json";
-import { getYear } from "date-fns";
 import { Workshop, WorkshopFilters } from "@/types";
 
 export type { Workshop, WorkshopFilters };
@@ -60,7 +59,7 @@ export function getFeaturedWorkshops(): Workshop[] {
  * @param filters - Object containing filter criteria
  * @returns Array of filtered workshops
  */
-export function filterWorkshops({ level, skills, month, year }: WorkshopFilters): Workshop[] {
+export function filterWorkshops({ category }: WorkshopFilters): Workshop[] {
   const today = new Date();
   today.setHours(0, 0, 0, 0);
 
@@ -71,43 +70,12 @@ export function filterWorkshops({ level, skills, month, year }: WorkshopFilters)
       return start > today;
     });
 
-    // Apply level filter
-    if (level) {
-      result = result.filter((workshop) => workshop.level === level);
+    // Apply category filter
+    if (category) {
+      result = result.filter((workshop) => workshop.type === category);
     }
 
-    // Apply skills filter (match if workshop has any of the specified skills)
-    if (skills && skills.length) {
-      result = result.filter((workshop) => skills.some((skill) => workshop.skills.includes(skill)));
-    }
-
-    // Apply date filters
-    if (!month && !year) {
-      return result; // No date filters applied
-    }
-
-    const targetYear = year || getYear(new Date());
-
-    return result.filter((workshop) => {
-      const [startStr, endStr] = workshop.dateRange.split(" to ");
-      const start = new Date(`${startStr}T00:00:00`);
-      const end = endStr ? new Date(`${endStr}T23:59:59`) : new Date(`${startStr}T23:59:59`);
-
-      // Filter by year if provided
-      if (year && start.getFullYear() > year && end.getFullYear() < year) {
-        return false;
-      }
-
-      // Filter by month if provided
-      if (month) {
-        const monthStart = new Date(targetYear, month - 1, 1);
-        const monthEnd = new Date(targetYear, month, 0, 23, 59, 59);
-        // Check for overlap between workshop dates and target month
-        return start <= monthEnd && end >= monthStart;
-      }
-
-      return true;
-    });
+    return result;
   } catch (error) {
     console.error("Error filtering workshops:", error);
     return [];

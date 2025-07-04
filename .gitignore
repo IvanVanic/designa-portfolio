@@ -4,7 +4,8 @@
 /node_modules
 
 # next.js
-/.next/
+.next/
+.open-next/
 /out/
 
 # production

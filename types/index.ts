@@ -31,10 +31,7 @@ export interface WorkshopData {
 }
 
 export interface WorkshopFilters {
-  level?: "beginner" | "intermediate" | "advanced";
-  skills?: string[];
-  month?: number;
-  year?: number;
+  category?: string;
 }
 
 // Artwork Types
@@ -45,6 +42,9 @@ export interface Artwork {
   image: string;
   description: string;
   tags: string[];
+  date?: string;
+  software?: string;
+  style?: string;
 }
 
 // Form Types

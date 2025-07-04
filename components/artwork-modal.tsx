@@ -1,103 +1,139 @@
-"use client"
-import { X } from "lucide-react"
-import { Badge } from "@/components/ui/badge"
-import { Button } from "@/components/ui/button"
-import { useState, useEffect } from "react"
+"use client";
+
+import { Dialog, DialogContent } from "@/components/ui/dialog";
+import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
+import { X, ChevronLeft, ChevronRight } from "lucide-react";
+import Image from "next/image";
+import { cn } from "@/lib/utils";
+import type { Artwork } from "@/types";
 
 interface ArtworkModalProps {
-  artwork: {
-    id: number
-    title: string
-    type: string
-    image: string
-    description: string
-    tags: string[]
-  } | null
-  isOpen: boolean
-  onClose: () => void
+  artwork: Artwork | null;
+  isOpen: boolean;
+  onClose: () => void;
+  allArtworks: Artwork[];
+  onNavigate: (artwork: Artwork) => void;
 }
 
-export function ArtworkModal({ artwork, isOpen, onClose }: ArtworkModalProps) {
-  const [isClosing, setIsClosing] = useState(false)
+export function ArtworkModal({
+  artwork,
+  isOpen,
+  onClose,
+  allArtworks = [],
+  onNavigate,
+}: ArtworkModalProps) {
+  if (!artwork) return null;
 
-  const handleClose = () => {
-    setIsClosing(true)
-    setTimeout(() => {
-      setIsClosing(false)
-      onClose()
-    }, 300) // Match animation duration
-  }
+  const currentIndex = allArtworks.findIndex((a) => a.id === artwork.id);
+  const hasNavigation = allArtworks.length > 1;
 
-  useEffect(() => {
-    if (!isOpen) {
-      setIsClosing(false)
+  const navigate = (direction: "next" | "prev") => {
+    const nextIndex = direction === "next" ? currentIndex + 1 : currentIndex - 1;
+    if (nextIndex >= 0 && nextIndex < allArtworks.length) {
+      onNavigate(allArtworks[nextIndex]);
     }
-  }, [isOpen])
-
-  if (!isOpen && !isClosing) return null
+  };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
-      {/* Backdrop */}
-      <div
-        className={`absolute inset-0 bg-black/60 backdrop-blur-sm transition-all duration-300 ease-out ${
-          isClosing ? "opacity-0 backdrop-blur-none" : "opacity-100"
-        }`}
-        onClick={handleClose}
-      />
-
-      {/* Modal Content */}
-      <div
-        className={`relative bg-[#E7E5DF] rounded-2xl shadow-2xl max-w-4xl w-full max-h-[90vh] overflow-hidden transition-all duration-300 ease-out ${
-          isClosing ? "opacity-0 scale-95 translate-y-4" : "opacity-100 scale-100 translate-y-0"
-        }`}
+    <Dialog open={isOpen} onOpenChange={onClose}>
+      <DialogContent
+        showCloseButton={false}
+        className="max-w-4xl w-full h-auto bg-transparent border-none p-0 shadow-none"
       >
-        {/* Close Button */}
-        <Button
-          onClick={handleClose}
-          variant="ghost"
-          size="icon"
-          className="absolute top-4 right-4 z-10 bg-[#393E41]/20 hover:bg-[#393E41]/40 text-[#393E41] rounded-full transition-all duration-200 hover:scale-110"
-        >
-          <X className="w-6 h-6" />
-        </Button>
-
-        <div className="grid md:grid-cols-2 gap-0 h-full">
-          {/* Image Section */}
-          <div className="relative bg-[#D3D0CB]/30">
-            <img
-              src={artwork?.image || "/placeholder.svg"}
-              alt={artwork?.title}
-              className="w-full h-full object-cover"
-            />
-          </div>
-
-          {/* Content Section */}
-          <div className="p-8 flex flex-col justify-center">
-            <div className="mb-4">
-              <Badge className="bg-[#44BBA4] text-white hover:bg-[#44BBA4]/90 mb-3">{artwork?.type}</Badge>
-              <h2 className="text-3xl font-bold text-[#393E41] mb-4">{artwork?.title}</h2>
+        {/* Navigation Buttons */}
+        {hasNavigation && (
+          <>
+            <Button
+              variant="ghost"
+              size="icon"
+              onClick={() => navigate("prev")}
+              disabled={currentIndex === 0}
+              className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-16 text-white bg-transparent hover:bg-transparent disabled:opacity-50 z-50"
+            >
+              <ChevronLeft className="w-12 h-12" />
+            </Button>
+            <Button
+              variant="ghost"
+              size="icon"
+              onClick={() => navigate("next")}
+              disabled={currentIndex === allArtworks.length - 1}
+              className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-16 text-white bg-transparent hover:bg-transparent disabled:opacity-50 z-50"
+            >
+              <ChevronRight className="w-12 h-12" />
+            </Button>
+          </>
+        )}
+        <div className={cn("rounded-lg p-0.5", "bg-gradient-to-b from-accent/30 to-accent/10")}>
+          <div className="bg-background-card rounded-lg">
+            {/* Header */}
+            <div className="flex items-start justify-between p-6 border-b border-accent/10">
+              <div className="flex flex-col gap-2">
+                <h2 className="text-2xl font-bold font-sora text-foreground">{artwork.title}</h2>
+                <Badge
+                  variant="secondary"
+                  className="bg-accent/10 text-accent px-3 py-1 text-xs font-medium rounded-full w-fit"
+                >
+                  {artwork.type}
+                </Badge>
+              </div>
+              <Button
+                variant="ghost"
+                size="icon"
+                onClick={onClose}
+                className="text-foreground/70 hover:text-foreground hover:bg-accent/10 rounded-full"
+              >
+                <X className="w-5 h-5" />
+              </Button>
             </div>
 
-            <p className="text-[#393E41]/80 text-lg leading-relaxed mb-6">{artwork?.description}</p>
+            {/* Image */}
+            <div className="p-6 relative">
+              <div className="relative h-[60vh] rounded-lg overflow-hidden bg-background">
+                <Image
+                  src={artwork.image || "/placeholder.svg"}
+                  alt={artwork.title}
+                  layout="fill"
+                  objectFit="contain"
+                  className="p-4"
+                />
+              </div>
+            </div>
 
-            <div className="space-y-3">
-              <h3 className="text-sm font-semibold text-[#393E41] uppercase tracking-wide">Tags</h3>
-              <div className="flex flex-wrap gap-2">
-                {artwork?.tags.map((tag, index) => (
+            {/* Footer */}
+            <div className="px-6 pb-6 border-t border-accent/10">
+              <p className="text-base text-foreground/80 mb-6 mt-6">{artwork.description}</p>
+              <div className="flex flex-wrap items-center justify-between gap-4">
+                <div className="flex flex-wrap gap-2">
                   <Badge
-                    key={index}
                     variant="outline"
-                    className="border-[#44BBA4] text-[#393E41] hover:bg-[#44BBA4]/10"
+                    className="text-xs border-accent/30 text-accent/80 bg-transparent"
                   >
-                    {tag}
+                    Created: {artwork.date || "2024"}
                   </Badge>
-                ))}
+                  <Badge
+                    variant="outline"
+                    className="text-xs border-accent/30 text-accent/80 bg-transparent"
+                  >
+                    Software: {artwork.software || "Photoshop, Blender"}
+                  </Badge>
+                  <Badge
+                    variant="outline"
+                    className="text-xs border-accent/30 text-accent/80 bg-transparent"
+                  >
+                    Style: {artwork.style || "Digital Art"}
+                  </Badge>
+                </div>
+                {hasNavigation && (
+                  <div className="text-sm text-foreground/70">
+                    {currentIndex + 1} / {allArtworks.length}
+                  </div>
+                )}
               </div>
             </div>
           </div>
         </div>
-      </div>
-    </div>
-  )
+      </DialogContent>
+    </Dialog>
+  );
 }

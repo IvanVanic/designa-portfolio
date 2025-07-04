@@ -1,104 +1,93 @@
 /**
  * Workshops Preview Section Component
- * Displays a preview of upcoming workshops with filtering functionality
+ * Displays a preview of upcoming workshops with animated cards
  */
 
 "use client";
 
-import { useState, useMemo, useCallback } from "react";
-import { getUpcomingWorkshops, filterWorkshops, Workshop } from "@/lib/workshops";
-import workshopsJson from "@/data/workshops.json";
-import { FilterBar } from "@/components/workshops/filter-bar";
-import { WorkshopCard } from "@/components/workshops/workshop-card";
+import { useState } from "react";
 import { AnimatedSection } from "@/components/animated-section";
 import { Button } from "@/components/ui/button";
-import { WorkshopDetailsModal } from "@/components/workshops/workshop-details-modal";
+import { WorkshopCard } from "@/components/workshops/workshop-card";
 import { AllWorkshopsModal } from "@/components/workshops/all-workshops-modal";
-import { WorkshopFilters, WorkshopData, WorkshopCategory } from "@/types";
-import { LAYOUT, ANIMATION_DELAYS, UI_TEXT } from "@/constants";
+import { WorkshopDetailsModal } from "@/components/workshops/workshop-details-modal";
+import { getUpcomingWorkshops } from "@/lib/workshops";
+import type { Workshop } from "@/types";
 
-/**
- * Workshops Preview Section Component
- * Displays upcoming workshops with filtering and modal functionality
- */
 export function WorkshopsPreviewSection() {
-  const initial = useMemo(() => getUpcomingWorkshops(999), []);
-  const [filtered, setFiltered] = useState<Workshop[]>(initial);
-  const [selected, setSelected] = useState<Workshop | null>(null);
-  const [openDetailsModal, setOpenDetailsModal] = useState(false);
-  const [isAllWorkshopsModalOpen, setAllWorkshopsModalOpen] = useState(false);
-  const [activeFilters, setActiveFilters] = useState<WorkshopFilters>({});
+  const [selectedWorkshop, setSelectedWorkshop] = useState<Workshop | null>(null);
+  const [showAllWorkshops, setShowAllWorkshops] = useState(false);
 
-  const handleFilterChange = useCallback((filters: WorkshopFilters) => {
-    setActiveFilters(filters);
-    setFiltered(filterWorkshops(filters));
-  }, []);
+  const upcomingWorkshops = getUpcomingWorkshops(3);
 
-  const handleWorkshopDetails = useCallback((workshop: Workshop) => {
-    setSelected(workshop);
-    setOpenDetailsModal(true);
-  }, []);
+  const handleWorkshopSelect = (workshop: Workshop) => {
+    setSelectedWorkshop(workshop);
+  };
+
+  const handleShowAllWorkshops = () => {
+    setShowAllWorkshops(true);
+  };
 
   return (
-    <section id="learn-with-us" className="py-20 px-4 sm:px-6 lg:px-8 bg-[#E7E5DF]">
-      <div className="max-w-7xl mx-auto w-full">
-        <AnimatedSection className="text-center mb-10">
-          <h2 className="text-4xl md:text-5xl font-bold text-[#393E41] mb-4">Learn With Us</h2>
-          <p className="text-lg text-[#393E41]/70 max-w-2xl mx-auto">
-            Hands-on workshops designed to level you up.
+    <section
+      id="workshops"
+      className="py-24 px-4 sm:px-6 lg:px-8 lg:pr-64 lg:pl-8 bg-gradient-to-br from-background via-gaming-dark to-background relative overflow-hidden"
+    >
+      {/* Animated background elements */}
+      <div className="absolute inset-0 pointer-events-none">
+        <div className="absolute top-32 left-16 w-2 h-2 bg-accent/30 rounded-full animate-pulse" />
+        <div className="absolute top-64 right-32 w-1 h-1 bg-accent/20 rounded-full animate-pulse animation-delay-500" />
+        <div className="absolute bottom-40 left-40 w-1.5 h-1.5 bg-accent/25 rounded-full animate-pulse animation-delay-1000" />
+      </div>
+
+      <div className="max-w-6xl mx-auto w-full relative z-10">
+        <AnimatedSection className="text-center mb-12 lg:mb-16">
+          <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold font-sora text-foreground mb-6 lg:mb-4 text-shadow-lg animate-in slide-in-from-top-4 duration-700 ease-out">
+            Upcoming Workshops
+          </h2>
+          <p className="text-lg md:text-xl text-foreground/70 max-w-2xl mx-auto mb-8 lg:mb-12 animate-in slide-in-from-top-4 duration-700 ease-out animation-delay-200">
+            Join our specialized workshops to enhance your game art skills with hands-on learning
+            and expert guidance.
           </p>
         </AnimatedSection>
 
-        <FilterBar onChange={handleFilterChange} />
-
-        <div className="grid md:grid-cols-3 gap-6 md:gap-8">
-          {filtered.slice(0, LAYOUT.previewCount).map((workshop, idx) => {
-            const category = (workshopsJson as WorkshopData).categories.find(
-              (c: WorkshopCategory) => c.id === workshop.type
-            );
-            return (
-              <AnimatedSection key={workshop.id} delay={idx * ANIMATION_DELAYS.medium}>
-                <WorkshopCard
-                  workshop={workshop}
-                  category={category}
-                  onDetails={handleWorkshopDetails}
-                />
-              </AnimatedSection>
-            );
-          })}
+        {/* Workshop Cards Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
+          {upcomingWorkshops.map((workshop, index) => (
+            <AnimatedSection key={workshop.id} delay={index * 150}>
+              <WorkshopCard
+                workshop={workshop}
+                onSelect={handleWorkshopSelect}
+                className="h-full"
+              />
+            </AnimatedSection>
+          ))}
         </div>
 
-        {filtered.length === 0 && (
-          <div className="text-center py-20">
-            <p className="text-3xl md:text-4xl font-bold text-[#393E41]/70">
-              {UI_TEXT.noWorkshopsFound}
-            </p>
-            {activeFilters.month && (
-              <p className="text-base text-[#393E41]/60 mt-2">
-                Try changing your filter settings or clearing active filters.{" "}
-              </p>
-            )}
-          </div>
-        )}
+        {/* View All Workshops Button */}
+        <AnimatedSection delay={800} className="text-center">
+          <Button
+            onClick={handleShowAllWorkshops}
+            variant="outline"
+            className="font-medium px-8 py-3 text-base rounded-lg transition-all duration-300 group cursor-none border-accent/30 hover:border-accent/80 hover:bg-accent/10 hover:text-accent"
+          >
+            <span>View All Workshops</span>
+          </Button>
+        </AnimatedSection>
 
-        {filtered.length > LAYOUT.previewCount && (
-          <div className="text-center mt-10">
-            <Button
-              variant="secondary"
-              onClick={() => setAllWorkshopsModalOpen(true)}
-              className="cursor-none h-14 px-8"
-            >
-              {UI_TEXT.viewAllWorkshops}
-            </Button>
-          </div>
-        )}
-
+        {/* Workshop Details Modal */}
         <WorkshopDetailsModal
-          workshop={selected}
-          open={openDetailsModal}
-          onOpenChange={setOpenDetailsModal}
+          workshop={selectedWorkshop}
+          open={!!selectedWorkshop}
+          onOpenChange={(open) => !open && setSelectedWorkshop(null)}
         />
-        <AllWorkshopsModal open={isAllWorkshopsModalOpen} onOpenChange={setAllWorkshopsModalOpen} />
+
+        {/* All Workshops Modal */}
+        <AllWorkshopsModal
+          open={showAllWorkshops}
+          onOpenChange={(open) => !open && setShowAllWorkshops(false)}
+          onWorkshopSelect={handleWorkshopSelect}
+        />
       </div>
     </section>
   );

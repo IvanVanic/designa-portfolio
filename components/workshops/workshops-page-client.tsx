@@ -12,14 +12,11 @@ import { Navbar } from "@/components/navbar";
 import { useSmoothScroll } from "@/hooks/use-smooth-scroll";
 import { WorkshopCard } from "@/components/workshops/workshop-card";
 import { getFeaturedWorkshops } from "@/lib/workshops";
-import workshopData from "@/data/workshops.json";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Calendar } from "lucide-react";
-import { WorkshopData, WorkshopCategory, Workshop } from "@/types";
+import { Workshop } from "@/types";
 import { ANIMATION_DELAYS } from "@/constants";
-
-
 
 /**
  * Main Workshops Page Client Component
@@ -33,7 +30,7 @@ export default function WorkshopsPageClient() {
   return (
     <div className="min-h-screen bg-[#E7E5DF] cursor-none font-inter">
       <CustomCursor />
-      <Navbar isWorkshopsPage={true} />
+      <Navbar onNavigate={() => {}} />
       {/* Workshops Section */}
       <section className="py-16 px-4 sm:px-6 lg:px-8 bg-[#E7E5DF]">
         <div className="max-w-7xl mx-auto">
@@ -49,12 +46,9 @@ export default function WorkshopsPageClient() {
           {featuredWorkshops.length > 0 ? (
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 items-stretch">
               {featuredWorkshops.map((workshop, index) => {
-                const category = (workshopData as WorkshopData).categories.find(
-                  (c: WorkshopCategory) => c.id === workshop.type
-                );
                 return (
                   <AnimatedSection key={workshop.id} delay={index * ANIMATION_DELAYS.long}>
-                    <WorkshopCard workshop={workshop as Workshop} category={category} />
+                    <WorkshopCard workshop={workshop as Workshop} onSelect={() => {}} />
                   </AnimatedSection>
                 );
               })}
@@ -70,7 +64,7 @@ export default function WorkshopsPageClient() {
                     New Workshops Coming Soon
                   </h3>
                   <p className="text-[#393E41]/70 mb-6">
-                    We're preparing exciting new workshop sessions. Check back soon.
+                    We&apos;re preparing exciting new workshop sessions. Check back soon.
                   </p>
                   <Button
                     variant="outline"

@@ -1,158 +1,172 @@
 /**
- * Navbar Component
- * Provides navigation functionality across the application
+ * Navigation Component
+ * Clean, properly aligned navbar with smooth animations
  */
 
 "use client";
 
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useRef } from "react";
 import { Button } from "@/components/ui/button";
-import { Menu, ArrowLeft } from "lucide-react";
-import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
-import Link from "next/link";
-import { COLORS, UI_TEXT } from "@/constants";
+import { Menu, X } from "lucide-react";
+import { cn } from "@/lib/utils";
 
 interface NavbarProps {
-  /** Whether this is the workshops page */
-  isWorkshopsPage?: boolean;
-  /** Callback for navigation events */
-  onNavigate?: (section: string) => void;
+  onNavigate: (section: string) => void;
 }
 
-/**
- * Navbar Component Implementation
- * Manages navigation state and provides smooth scrolling functionality
- */
-export function Navbar({ isWorkshopsPage = false, onNavigate }: NavbarProps) {
-  const [isScrolled, setIsScrolled] = useState(false);
+const navigationItems = [
+  { id: "home", label: "Home" },
+  { id: "works", label: "Works" },
+  { id: "about", label: "About" },
+  { id: "workshops", label: "Workshops" },
+  { id: "mentorship", label: "Mentorship" },
+];
+
+export function Navbar({ onNavigate }: NavbarProps) {
+  const [activeSection, setActiveSection] = useState("home");
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const navRef = useRef<HTMLDivElement>(null);
+  const scrollTimeout = useRef<NodeJS.Timeout | null>(null);
 
   useEffect(() => {
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 50);
+      if (scrollTimeout.current) return;
+
+      const sections = navigationItems.map((item) => item.id);
+      const currentSection = sections.find((section) => {
+        const element = document.getElementById(section);
+        if (element) {
+          const rect = element.getBoundingClientRect();
+          return rect.top <= 100 && rect.bottom >= 100;
+        }
+        return false;
+      });
+
+      if (currentSection) {
+        setActiveSection(currentSection);
+      }
     };
+
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  const scrollToSection = useCallback(
-    (id: string) => {
-      if (onNavigate) {
-        onNavigate(id);
-      } else {
-        const element = document.getElementById(id);
-        if (element) {
-          element.scrollIntoView({
-            behavior: "smooth",
-            block: "start",
-          });
-        }
+  // Close mobile menu when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (navRef.current && !navRef.current.contains(event.target as Node)) {
+        setIsMobileMenuOpen(false);
       }
-    },
-    [onNavigate]
-  );
+    };
 
-  const NavLinks = ({ mobile = false, onClose = () => {} }) => (
-    <>
-      {!isWorkshopsPage && (
-        <>
-          <button
-            onClick={() => {
-              scrollToSection("hero");
-              onClose();
-            }}
-            className={`text-sm font-medium hover:text-[#44BBA4] transition-all duration-300 ${
-              isScrolled ? "text-[#393E41]" : "text-[#E7E5DF]"
-            }`}
-          >
-            Home
-          </button>
-          <button
-            onClick={() => {
-              scrollToSection("works");
-              onClose();
-            }}
-            className={`text-sm font-medium hover:text-[#44BBA4] transition-all duration-300 ${
-              isScrolled ? "text-[#393E41]" : "text-[#E7E5DF]"
-            }`}
-          >
-            Works
-          </button>
-          <button
-            onClick={() => {
-              scrollToSection("about");
-              onClose();
-            }}
-            className={`text-sm font-medium hover:text-[#44BBA4] transition-all duration-300 ${
-              isScrolled ? "text-[#393E41]" : "text-[#E7E5DF]"
-            }`}
-          >
-            About
-          </button>
-          <button
-            onClick={() => {
-              scrollToSection("contact");
-              onClose();
-            }}
-            className={`text-sm font-medium hover:text-[#44BBA4] transition-all duration-300 ${
-              isScrolled ? "text-[#393E41]" : "text-[#E7E5DF]"
-            }`}
-          >
-            Contact
-          </button>
-        </>
-      )}
-    </>
-  );
+    if (isMobileMenuOpen) {
+      document.addEventListener("mousedown", handleClickOutside);
+    }
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [isMobileMenuOpen]);
+
+  // Lock body scroll when mobile menu is open
+  useEffect(() => {
+    if (isMobileMenuOpen) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "unset";
+    }
+
+    return () => {
+      document.body.style.overflow = "unset";
+    };
+  }, [isMobileMenuOpen]);
+
+  const handleNavigation = (section: string) => {
+    if (scrollTimeout.current) {
+      clearTimeout(scrollTimeout.current);
+    }
+
+    setActiveSection(section);
+    setIsMobileMenuOpen(false);
+    onNavigate(section);
+
+    scrollTimeout.current = setTimeout(() => {
+      scrollTimeout.current = null;
+    }, 1000); // Debounce duration, should match scroll animation time
+  };
 
   return (
-    <nav
-      className={`fixed top-0 w-full z-40 transition-all duration-500 ease-out ${
-        isScrolled || isWorkshopsPage
-          ? "bg-[#E7E5DF]/95 backdrop-blur-md shadow-sm"
-          : "bg-transparent"
-      }`}
-    >
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between items-center h-16">
-          {/* Logo or Back Button */}
-          {isWorkshopsPage ? (
-            <Link
-              href="/"
-              className="flex items-center space-x-2 text-[#393E41] hover:text-[#44BBA4] transition-colors duration-300 cursor-none"
-            >
-              <ArrowLeft className="w-5 h-5" />
-              <span className="text-lg font-semibold">{UI_TEXT.backToMain}</span>
-            </Link>
-          ) : (
-            <div
-              className={`text-2xl font-bold tracking-[0.2em] transition-all duration-500 ${
-                isScrolled ? "text-[#393E41]" : "text-[#E7E5DF]"
-              }`}
-            >
-              DESIGNA
-            </div>
-          )}
+    <>
+      {/* Desktop Navigation */}
+      <nav className="fixed top-1/2 right-8 -translate-y-1/2 z-50 hidden lg:block">
+        <div className="flex flex-col gap-6 items-end">
+          {/* Navigation Links */}
+          {navigationItems.map((item) => {
+            const isActive = activeSection === item.id;
 
-          {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center space-x-8">
-            <NavLinks />
-          </div>
-
-          {/* Mobile Navigation */}
-          <Sheet>
-            <SheetTrigger asChild>
-              <Button variant="ghost" size="icon" className="md:hidden cursor-none">
-                <Menu className="h-6 w-6" />
-              </Button>
-            </SheetTrigger>
-            <SheetContent className="bg-[#E7E5DF]">
-              <div className="flex flex-col space-y-6 mt-8">
-                <NavLinks mobile onClose={() => {}} />
+            return (
+              <div key={item.id} className="relative group">
+                <button
+                  onClick={() => handleNavigation(item.id)}
+                  className={cn(
+                    "font-sora transition-all duration-300 ease-out cursor-none",
+                    "transform-gpu origin-right",
+                    isActive
+                      ? "text-accent font-medium scale-110"
+                      : "text-white/70 hover:text-white/90 hover:scale-110"
+                  )}
+                >
+                  {item.label}
+                </button>
               </div>
-            </SheetContent>
-          </Sheet>
+            );
+          })}
+        </div>
+      </nav>
+
+      {/* Mobile Navigation */}
+      <div ref={navRef} className="lg:hidden">
+        {/* Mobile Menu Button */}
+        <Button
+          variant="ghost"
+          size="icon"
+          className="fixed top-6 right-6 z-50 bg-gaming-card/90 backdrop-blur-sm border border-accent/30 hover:border-accent/60 text-accent hover:bg-accent hover:text-accent-foreground transition-all duration-300 shadow-lg cursor-none"
+          onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+        >
+          {isMobileMenuOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
+        </Button>
+
+        {/* Mobile Menu Overlay */}
+        {isMobileMenuOpen && (
+          <div className="fixed inset-0 bg-black/50 backdrop-blur-sm z-40 animate-in fade-in-0 duration-300" />
+        )}
+
+        {/* Mobile Menu */}
+        <div
+          className={cn(
+            "fixed top-0 right-0 h-full w-64 bg-gaming-card border-l border-accent/30 z-50 transform transition-all duration-300 ease-out",
+            isMobileMenuOpen ? "translate-x-0" : "translate-x-full"
+          )}
+        >
+          <div className="flex flex-col gap-4 p-6 pt-20">
+            {navigationItems.map((item) => (
+              <button
+                key={item.id}
+                onClick={() => handleNavigation(item.id)}
+                className={cn(
+                  "text-left font-sora py-3 px-4 rounded-gaming transition-all duration-300 ease-out cursor-none",
+                  "hover:bg-accent/10 hover:text-accent",
+                  activeSection === item.id
+                    ? "text-accent bg-accent/20 font-medium"
+                    : "text-white/70 hover:text-white/90"
+                )}
+              >
+                {item.label}
+              </button>
+            ))}
+          </div>
         </div>
       </div>
-    </nav>
+    </>
   );
 }

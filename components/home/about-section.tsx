@@ -1,22 +1,20 @@
 /**
  * About Section Component
- * Displays information about Designa, including experience, contact details, and a contact form.
+ * Combined about and contact section side by side
  */
 "use client";
 
-import type React from "react";
 import { useState, useCallback } from "react";
-import { Instagram, Mail, Send, User, MessageSquare } from "lucide-react";
-import { z } from "zod";
-
+import { AnimatedSection } from "@/components/animated-section";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import { Card, CardContent } from "@/components/ui/card";
 import { ContactFormSkeleton } from "@/components/skeleton-loaders";
-import { AnimatedSection } from "@/components/animated-section";
+import { Mail, Send, User, MessageSquare, Instagram } from "lucide-react";
+import { z } from "zod";
 import { ContactFormData, FormStatus } from "@/types";
 import { TIMING, VALIDATION } from "@/constants";
+import { Particles } from "@/components/particles";
 
 const formSchema = z.object({
   name: z.string().min(VALIDATION.minNameLength),
@@ -59,127 +57,136 @@ export function AboutSection() {
   return (
     <section
       id="about"
-      className="min-h-screen flex items-center py-20 px-4 sm:px-6 lg:px-8 bg-[#D3D0CB]/30"
+      className="py-24 px-4 sm:px-6 lg:px-8 bg-background relative overflow-hidden"
     >
-      <div className="max-w-6xl mx-auto w-full">
-        <AnimatedSection className="text-center mb-12">
-          <h2 className="text-4xl font-bold text-[#393E41] mb-4">About Designa</h2>
-        </AnimatedSection>
+      <Particles count={30} variant="flowing" className="opacity-50" />
+      <Particles count={15} variant="stationary" className="opacity-30" />
 
-        <div className="grid md:grid-cols-5 gap-8">
-          {/* Left column */}
-          <div className="md:col-span-2 flex flex-col gap-8">
-            <AnimatedSection className="flex-1 flex">
-              <Card className="bg-white/80 rounded-xl shadow-md h-full backdrop-blur-sm">
-                <CardContent className="p-12">
-                  <h3 className="text-xl font-bold text-[#393E41] mb-4">Our Experience</h3>
-                  <p className="text-base text-[#393E41] leading-relaxed">
-                    Founded in the City of Flow in the enourmous 2025, Designa is a small team of artists focused on game art, 3D assets, and concept design. We're passionate about gaming, back pain and good coffee.
-                  </p>
-                </CardContent>
-              </Card>
-            </AnimatedSection>
+      <div className="max-w-6xl mx-auto w-full relative z-10">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16">
+          {/* About Designa - Left Side */}
+          <AnimatedSection delay={0}>
+            <div className="lg:pr-8">
+              <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold font-sora text-foreground mb-6 lg:mb-8">
+                About Designa
+              </h2>
 
-            <AnimatedSection delay={200} className="flex-1 flex w-full">
-              <Card className="bg-white/80 rounded-xl shadow-md h-full backdrop-blur-sm w-full">
-                <CardContent className="p-12 flex flex-col justify-center">
-                  <h3 className="text-xl font-bold text-[#393E41] mb-6 text-left">
-                    Connect With Us
-                  </h3>
-                  <div className="space-y-4">
-                    <div className="flex items-center space-x-3">
-                      <Mail className="w-5 h-5 text-black" />
-                      <a
-                        href="mailto:contact@designa.art"
-                        className="text-[#393E41] hover:text-[#44BBA4] transition-colors duration-300 cursor-none font-inter text-left"
-                      >
-                        contact@designa.art
-                      </a>
-                    </div>
-                    <div className="flex items-center space-x-3">
-                      <Instagram className="w-5 h-5 text-black" />
-                      <a
-                        href="#"
-                        className="text-[#393E41] hover:text-[#44BBA4] transition-colors duration-300 cursor-none font-inter text-left"
-                      >
-                        @designa.studio
-                      </a>
-                    </div>
-                  </div>
-                </CardContent>
-              </Card>
-            </AnimatedSection>
-          </div>
+              <p className="text-lg md:text-xl text-foreground/80 mb-8 lg:mb-12 leading-relaxed">
+                We are a passionate team of artists and designers dedicated to creating exceptional
+                game art. Our expertise spans across multiple disciplines, bringing your gaming
+                vision to life with stunning visuals that captivate and engage players.
+              </p>
 
-          {/* Right column */}
-          <AnimatedSection delay={100} className="md:col-span-3">
-            <Card className="bg-white/80 rounded-xl shadow-md h-full backdrop-blur-sm">
-              <CardContent className="p-12">
-                <h3 className="text-xl font-bold text-[#393E41] mb-6 text-center">
-                  Got questions? Contact us!
+              <p className="text-base md:text-lg text-foreground/70 mb-8 lg:mb-12 leading-relaxed">
+                From character design to environment art, UI/UX design to complete visual packages,
+                we work closely with development teams to ensure every pixel serves the greater
+                gaming experience.
+              </p>
+
+              {/* Social Links */}
+              <div className="space-y-4">
+                <h3 className="text-xl font-semibold font-sora text-foreground mb-4">
+                  Connect with us
                 </h3>
-                {formStatus === "success" ? (
-                  <div className="text-center py-8 animate-fadeIn">
-                    <div className="w-14 h-14 bg-[#44BBA4]/20 rounded-full flex items-center justify-center mx-auto mb-4 animate-bounce">
-                      <Mail className="w-7 h-7 text-[#44BBA4]" />
+
+                <div className="flex flex-col space-y-3">
+                  <a
+                    href="mailto:contact@designa.art"
+                    className="flex items-center space-x-3 text-foreground hover:text-accent transition-colors duration-300 cursor-none group"
+                  >
+                    <div className="w-10 h-10 bg-accent/20 rounded-full flex items-center justify-center group-hover:bg-accent/30 transition-colors duration-300">
+                      <Mail className="w-5 h-5 text-accent" />
                     </div>
-                    <h3 className="text-xl font-semibold text-[#393E41] mb-2">
-                      Thanks for reaching out!
-                    </h3>
-                    <p className="text-[#393E41]/70">
-                      We'll be in touch soon to discuss your project.
-                    </p>
+                    <span className="font-sora">contact@designa.art</span>
+                  </a>
+
+                  <a
+                    href="https://instagram.com/designa"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center space-x-3 text-foreground hover:text-accent transition-colors duration-300 cursor-none group"
+                  >
+                    <div className="w-10 h-10 bg-accent/20 rounded-full flex items-center justify-center group-hover:bg-accent/30 transition-colors duration-300">
+                      <Instagram className="w-5 h-5 text-accent" />
+                    </div>
+                    <span className="font-sora">@designa</span>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </AnimatedSection>
+
+          {/* Get in Touch - Right Side */}
+          <AnimatedSection delay={200}>
+            <div className="bg-gaming-card border-2 border-accent/20 rounded-xl p-6 md:p-8 shadow-lg">
+              <h3 className="text-2xl md:text-3xl font-bold font-sora text-foreground mb-6 md:mb-8">
+                Get in touch
+              </h3>
+
+              {formStatus === "success" ? (
+                <div className="text-center py-8 animate-fadeIn">
+                  <div className="w-14 h-14 md:w-16 md:h-16 bg-accent/20 rounded-full flex items-center justify-center mx-auto mb-4 animate-bounce">
+                    <Mail className="w-7 h-7 md:w-8 md:h-8 text-accent" />
                   </div>
-                ) : formStatus === "loading" ? (
-                  <ContactFormSkeleton />
-                ) : (
-                  <form onSubmit={handleSubmit} className="space-y-4">
-                    <div className="relative">
-                      <User className="absolute left-3 top-1/2 transform -translate-y-1/2 text-[#393E41]/50 w-4 h-4" />
-                      <Input
-                        name="name"
-                        required
-                        value={formData.name}
-                        onChange={handleInputChange}
-                        className="w-full h-12 pl-10 text-base"
-                        placeholder="Your name"
-                      />
-                    </div>
-                    <div className="relative">
-                      <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 text-[#393E41]/50 w-4 h-4" />
-                      <Input
-                        name="email"
-                        type="email"
-                        required
-                        value={formData.email}
-                        onChange={handleInputChange}
-                        className="w-full h-12 pl-10 text-base"
-                        placeholder="you@email.com"
-                      />
-                    </div>
-                    <div className="relative">
-                      <MessageSquare className="absolute left-3 top-3.5 text-[#393E41]/50 w-4 h-4" />
-                      <Textarea
-                        name="message"
-                        rows={5}
-                        required
-                        value={formData.message}
-                        onChange={handleInputChange}
-                        className="w-full pl-10 pt-3 resize-none text-base"
-                        placeholder="Your message goes here..."
-                      />
-                    </div>
-                    <Button
-                      type="submit"
-                      className="w-full h-12 text-base font-semibold cursor-none"
-                    >
-                      <Send className="w-4 h-4 mr-2" />
-                      Send Message
-                    </Button>
-                  </form>
-                )}
-              </CardContent>
-            </Card>
+                  <h4 className="text-xl md:text-2xl font-semibold text-foreground mb-2 font-sora">
+                    Thanks for reaching out!
+                  </h4>
+                  <p className="text-foreground/70 text-sm md:text-base">
+                    We&apos;ll be in touch soon to discuss your project.
+                  </p>
+                </div>
+              ) : formStatus === "loading" ? (
+                <ContactFormSkeleton />
+              ) : (
+                <form onSubmit={handleSubmit} className="space-y-4 md:space-y-6">
+                  <div className="relative">
+                    <User className="absolute left-3 top-1/2 transform -translate-y-1/2 text-foreground/50 w-4 h-4 md:w-5 md:h-5" />
+                    <Input
+                      name="name"
+                      required
+                      value={formData.name}
+                      onChange={handleInputChange}
+                      className="w-full h-12 md:h-14 pl-10 md:pl-12 text-base md:text-lg bg-gaming-card/50 border-accent/20 text-foreground placeholder:text-foreground/50 focus:border-accent rounded-gaming"
+                      placeholder="Your name"
+                    />
+                  </div>
+
+                  <div className="relative">
+                    <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 text-foreground/50 w-4 h-4 md:w-5 md:h-5" />
+                    <Input
+                      name="email"
+                      type="email"
+                      required
+                      value={formData.email}
+                      onChange={handleInputChange}
+                      className="w-full h-12 md:h-14 pl-10 md:pl-12 text-base md:text-lg bg-gaming-card/50 border-accent/20 text-foreground placeholder:text-foreground/50 focus:border-accent rounded-gaming"
+                      placeholder="you@email.com"
+                    />
+                  </div>
+
+                  <div className="relative">
+                    <MessageSquare className="absolute left-3 top-3.5 text-foreground/50 w-4 h-4 md:w-5 md:h-5" />
+                    <Textarea
+                      name="message"
+                      rows={5}
+                      required
+                      value={formData.message}
+                      onChange={handleInputChange}
+                      className="w-full pl-10 md:pl-12 pt-3 resize-none text-base md:text-lg bg-gaming-card/50 border-accent/20 text-foreground placeholder:text-foreground/50 focus:border-accent rounded-gaming"
+                      placeholder="Tell us about your project..."
+                    />
+                  </div>
+
+                  <Button
+                    type="submit"
+                    className="w-full h-12 md:h-14 bg-accent hover:bg-accent/90 text-accent-foreground font-medium text-base md:text-lg rounded-gaming transition-all duration-300 hover:scale-105 shadow-lg hover:shadow-accent/20 border border-accent/30 hover:border-accent/60 cursor-none group"
+                  >
+                    <Send className="mr-2 w-4 h-4 md:w-5 md:h-5 group-hover:animate-pulse" />
+                    <span className="group-hover:animate-pulse">Send Message</span>
+                  </Button>
+                </form>
+              )}
+            </div>
           </AnimatedSection>
         </div>
       </div>

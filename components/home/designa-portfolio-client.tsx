@@ -72,8 +72,12 @@ export default function DesignaPortfolioClient() {
     setSelectedArtwork(null);
   }, []);
 
+  const handleNavigate = useCallback((artwork: Artwork) => {
+    setSelectedArtwork(artwork);
+  }, []);
+
   return (
-    <div className="min-h-screen bg-[#E7E5DF] cursor-none font-inter">
+    <div className="min-h-screen bg-background cursor-none font-sora">
       <CustomCursor />
       {isPageLoading && <PageLoader />}
       <div
@@ -93,7 +97,13 @@ export default function DesignaPortfolioClient() {
         <Footer />
       </div>
       {selectedArtwork && (
-        <ArtworkModal artwork={selectedArtwork} isOpen={isModalOpen} onClose={closeModal} />
+        <ArtworkModal
+          artwork={selectedArtwork}
+          isOpen={isModalOpen}
+          onClose={closeModal}
+          allArtworks={artworks}
+          onNavigate={handleNavigate}
+        />
       )}
     </div>
   );

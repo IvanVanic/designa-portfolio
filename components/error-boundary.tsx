@@ -5,10 +5,10 @@
 
 "use client";
 
-import React, { Component, ReactNode } from 'react';
-import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { AlertTriangle, RefreshCw } from 'lucide-react';
+import React, { Component, ReactNode } from "react";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { AlertTriangle, RefreshCw } from "lucide-react";
 
 interface ErrorBoundaryProps {
   children: ReactNode;
@@ -46,8 +46,8 @@ export class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundarySt
 
   componentDidCatch(error: Error, errorInfo: React.ErrorInfo) {
     // Log error details
-    console.error('Error caught by boundary:', error, errorInfo);
-    
+    console.error("Error caught by boundary:", error, errorInfo);
+
     // Update state with error info
     this.setState({
       errorInfo,
@@ -89,11 +89,11 @@ export class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundarySt
             </CardHeader>
             <CardContent className="space-y-4">
               <p className="text-[#393E41]/70 text-center">
-                We're sorry, but something unexpected happened. Please try refreshing the page.
+                We&apos;re sorry, but something unexpected happened. Please try refreshing the page.
               </p>
-              
+
               {/* Show error details in development */}
-              {process.env.NODE_ENV === 'development' && this.state.error && (
+              {process.env.NODE_ENV === "development" && this.state.error && (
                 <details className="bg-red-50 p-4 rounded-lg">
                   <summary className="font-medium text-red-800 cursor-pointer">
                     Error Details (Development)
@@ -102,9 +102,7 @@ export class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundarySt
                     <p className="font-medium">Error:</p>
                     <p className="mb-2">{this.state.error.message}</p>
                     <p className="font-medium">Stack Trace:</p>
-                    <pre className="whitespace-pre-wrap text-xs">
-                      {this.state.error.stack}
-                    </pre>
+                    <pre className="whitespace-pre-wrap text-xs">{this.state.error.stack}</pre>
                   </div>
                 </details>
               )}
@@ -152,7 +150,7 @@ export function withErrorBoundary<T extends object>(
   );
 
   WrappedComponent.displayName = `withErrorBoundary(${Component.displayName || Component.name})`;
-  
+
   return WrappedComponent;
 }
 
@@ -162,10 +160,10 @@ export function withErrorBoundary<T extends object>(
  */
 export const useErrorHandler = () => {
   const [, setState] = React.useState();
-  
+
   return React.useCallback((error: Error) => {
     setState(() => {
       throw error;
     });
   }, []);
-}; 
+};

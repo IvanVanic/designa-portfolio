@@ -6,15 +6,15 @@
 import type React from "react";
 import type { Metadata } from "next";
 import "./globals.css";
-import { Inter } from "next/font/google";
+import { Sora } from "next/font/google";
 import { cn } from "@/lib/utils";
 import { ThemeProvider } from "@/components/theme-provider";
 import { ErrorBoundary } from "@/components/error-boundary";
 
-const inter = Inter({
+const sora = Sora({
   subsets: ["latin"],
-  weight: ["300", "400", "500", "600", "700", "800", "900"],
-  variable: "--font-inter",
+  weight: ["100", "200", "300", "400", "500", "600", "700", "800"],
+  variable: "--font-sora",
   display: "swap",
 });
 
@@ -48,7 +48,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className={cn(inter.className)}>
+      <body className={cn(sora.className)}>
         <ThemeProvider attribute="class" defaultTheme="light" enableSystem>
           <ErrorBoundary>{children}</ErrorBoundary>
         </ThemeProvider>
