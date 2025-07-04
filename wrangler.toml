@@ -11,3 +11,9 @@ name = "designa-portfolio"
 
 [vars]
 NODE_ENV = "production" 
+
+[observability.logs]
+enabled = true
+
+
+
