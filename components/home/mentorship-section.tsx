@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import { AnimatedSection } from "@/components/animated-section";
 import { Card, CardContent } from "@/components/ui/card";
@@ -12,7 +12,7 @@ export function MentorshipSection() {
     <section className="w-full bg-gradient-to-br from-[#D3D0CB]/50 via-[#E7E5DF] to-[#44BBA4]/10 py-24 px-4 sm:px-6 lg:px-8">
       <div className="max-w-6xl mx-auto space-y-16">
         <AnimatedSection className="text-center">
-          <span className="inline-flex items-center space-x-2 mb-4">
+          <span className="inline-flex items-center space-x-2 mb-8">
             <Badge variant="secondary">NEW</Badge>
             <p className="text-sm tracking-wide text-[#44BBA4] uppercase">1-on-1 Mentorship</p>
           </span>
@@ -20,7 +20,8 @@ export function MentorshipSection() {
             Personalised Guidance From Industry Pros
           </h2>
           <p className="max-w-3xl mx-auto text-lg sm:text-xl text-[#393E41]/80">
-            Accelerate your growth as a game artist with tailored sessions focused on your goals, portfolio and skill gaps.
+            Accelerate your growth as a game artist with tailored sessions focused on your goals,
+            portfolio and skill gaps.
           </p>
         </AnimatedSection>
 
@@ -69,8 +70,15 @@ export function MentorshipSection() {
 
         {/* CTA */}
         <AnimatedSection delay={400} className="text-center">
-          <Link href="https://forms.google.com/placeholder-mentorship-form" target="_blank" rel="noopener noreferrer">
-            <Button size="lg" className="bg-[#393E41] hover:bg-[#393E41]/90 text-[#E7E5DF] px-10 py-6 text-lg font-semibold cursor-none transform hover:scale-105 transition-transform">
+          <Link
+            href="https://forms.google.com/placeholder-mentorship-form"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <Button
+              size="lg"
+              className="bg-[#393E41] hover:bg-[#393E41]/90 text-[#E7E5DF] px-10 py-6 text-lg font-semibold cursor-none transform hover:scale-105 transition-transform"
+            >
               Request Mentorship
               <ExternalLink className="ml-3 w-5 h-5" />
             </Button>
@@ -80,4 +88,4 @@ export function MentorshipSection() {
       </div>
     </section>
   );
-} 
+}

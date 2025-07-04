@@ -22,6 +22,12 @@ interface WorkshopCardProps {
 }
 
 export function WorkshopCard({ workshop, category, onDetails }: WorkshopCardProps) {
+  // Parse and format dates
+  const [startDateStr, endDateStr] = workshop.dateRange.split(" to ");
+  const formatDate = (dateStr: string) => {
+    return dateStr.replace(/-/g, "/");
+  };
+
   return (
     <Card
       role="button"
@@ -58,13 +64,11 @@ export function WorkshopCard({ workshop, category, onDetails }: WorkshopCardProp
               {workshop.title}
             </h3>
             <div className="flex items-start space-x-2 text-white/90">
-              <Calendar className="w-4 h-4 mt-1" />
+              <Calendar className="w-5 h-5 mt-0.5 flex-shrink-0" />
               <div className="flex flex-col">
+                <span className="text-sm font-medium">Start: {formatDate(startDateStr)}</span>
                 <span className="text-sm font-medium">
-                  Start: {workshop.dateRange.split(" - ")[0]}
-                </span>
-                <span className="text-sm font-medium">
-                  End: {workshop.dateRange.split(" - ")[1] || workshop.dateRange.split(" - ")[0]}
+                  End: {formatDate(endDateStr || startDateStr)}
                 </span>
               </div>
             </div>
