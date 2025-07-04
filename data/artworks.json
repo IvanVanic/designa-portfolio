@@ -1,0 +1,50 @@
+[
+  {
+    "id": 1,
+    "title": "Serene Landscapes",
+    "type": "Environment Art",
+    "image": "/gallery-placeholder-1.png",
+    "description": "Beautiful rolling hills and peaceful environments that create immersive game worlds. This piece showcases our ability to create calming, atmospheric scenes perfect for exploration games.",
+    "tags": ["Environment", "Landscape", "Peaceful", "Digital Art", "Game Art"]
+  },
+  {
+    "id": 2,
+    "title": "Mystical Realms",
+    "type": "Concept Art",
+    "image": "/gallery-placeholder-2.png",
+    "description": "Dark and mysterious environments with dramatic lighting and atmospheric effects. Perfect for fantasy RPGs and adventure games requiring moody, compelling backdrops.",
+    "tags": ["Fantasy", "Concept Art", "Atmospheric", "Dark", "RPG"]
+  },
+  {
+    "id": 3,
+    "title": "Desert Expeditions",
+    "type": "Environment Art",
+    "image": "/gallery-placeholder-3.png",
+    "description": "Warm, inviting desert landscapes with rich orange and yellow tones. These environments tell stories of adventure and exploration in vast, open worlds.",
+    "tags": ["Desert", "Adventure", "Warm Tones", "Exploration", "Open World"]
+  },
+  {
+    "id": 4,
+    "title": "Character Portraits",
+    "type": "Character Art",
+    "image": "/gallery-placeholder-1.png",
+    "description": "Detailed character designs with strong personalities and memorable silhouettes. Each character is crafted to fit seamlessly into their respective game worlds.",
+    "tags": ["Characters", "Portraits", "Design", "Personality", "Game Art"]
+  },
+  {
+    "id": 5,
+    "title": "UI Interface Design",
+    "type": "Interface Design",
+    "image": "/gallery-placeholder-2.png",
+    "description": "Clean, intuitive user interfaces that enhance gameplay without overwhelming the player. Modern design principles applied to game UI/UX.",
+    "tags": ["UI/UX", "Interface", "Clean Design", "User Experience", "Modern"]
+  },
+  {
+    "id": 6,
+    "title": "Pixel Art Collection",
+    "type": "2D Assets",
+    "image": "/gallery-placeholder-3.png",
+    "description": "Retro-style pixel art perfect for indie games. Carefully crafted with attention to detail while maintaining classic 8-bit and 16-bit aesthetics.",
+    "tags": ["Pixel Art", "Retro", "Indie Games", "2D Assets", "Classic"]
+  }
+] 
