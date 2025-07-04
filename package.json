@@ -3,8 +3,9 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "build": "next build",
-    "deploy": "pnpm opennextjs-cloudflare build && pnpm opennextjs-cloudflare deploy",
+    "build": "opennextjs-cloudflare build",
+    "deploy": "opennextjs-cloudflare build && opennextjs-cloudflare deploy",
+    "preview": "opennextjs-cloudflare build && opennextjs-cloudflare preview",
     "dev": "next dev",
     "lint": "next lint",
     "start": "next start"
