@@ -31,7 +31,7 @@ export function WorkshopsPreviewSection() {
   return (
     <section
       id="workshops"
-      className="py-24 px-4 sm:px-6 lg:px-8 lg:pr-64 lg:pl-8 bg-gradient-to-br from-background via-gaming-dark to-background relative overflow-hidden"
+      className="py-24 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-background via-gaming-dark to-background relative overflow-hidden"
     >
       {/* Animated background elements */}
       <div className="absolute inset-0 pointer-events-none">

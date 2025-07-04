@@ -18,7 +18,7 @@ export function HeroSection({ onNavigate }: HeroSectionProps) {
   return (
     <section
       id="home"
-      className="min-h-screen flex items-center justify-center bg-gradient-to-br from-background via-gaming-dark to-background relative overflow-hidden px-4 sm:px-6 lg:px-8 lg:pr-64 lg:pl-8 animate-background-breath"
+      className="min-h-screen flex items-center justify-center bg-gradient-to-br from-background via-gaming-dark to-background relative overflow-hidden px-4 sm:px-6 lg:px-8 animate-background-breath"
     >
       <Particles count={70} variant="flowing" />
       <Particles count={20} variant="stationary" className="opacity-50" />
