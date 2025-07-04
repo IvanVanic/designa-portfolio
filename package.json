@@ -4,9 +4,6 @@
   "private": true,
   "scripts": {
     "build": "next build",
-    "open-next:build": "opennextjs-cloudflare build",
-    "deploy": "pnpm run open-next:build && pnpm wrangler deploy .open-next/worker.js --name designa-portfolio --compatibility-date 2024-09-23 --compatibility-flags nodejs_compat --env=\"\"",
-    "preview": "pnpm run open-next:build && pnpm wrangler deploy .open-next/worker.js --name designa-portfolio-preview --compatibility-date 2024-09-23 --compatibility-flags nodejs_compat --env=\"\"",
     "dev": "next dev",
     "lint": "next lint",
     "start": "next start"
@@ -63,15 +60,13 @@
     "zod": "^3.24.1"
   },
   "devDependencies": {
-    "@opennextjs/cloudflare": "^1.3.1",
     "@types/node": "^22",
     "@types/react": "^19",
     "@types/react-dom": "^19",
     "eslint": "^9.30.1",
     "postcss": "^8.5",
     "tailwindcss": "^3.4.17",
-    "typescript": "^5",
-    "wrangler": "^4.23.0"
+    "typescript": "^5"
   },
   "pnpm": {
     "peerDependencyRules": {
