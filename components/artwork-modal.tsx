@@ -1,12 +1,13 @@
 "use client";
 
-import { Dialog, DialogContent } from "@/components/ui/dialog";
+import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { X, ChevronLeft, ChevronRight } from "lucide-react";
 import Image from "next/image";
 import { cn } from "@/lib/utils";
 import type { Artwork } from "@/types";
+import { VisuallyHidden } from "@radix-ui/react-visually-hidden";
 
 interface ArtworkModalProps {
   artwork: Artwork | null;
@@ -41,6 +42,9 @@ export function ArtworkModal({
         showCloseButton={false}
         className="max-w-4xl w-full h-auto bg-transparent border-none p-0 shadow-none"
       >
+        <DialogTitle asChild>
+          <VisuallyHidden>{artwork.title}</VisuallyHidden>
+        </DialogTitle>
         {/* Navigation Buttons */}
         {hasNavigation && (
           <>
@@ -49,7 +53,7 @@ export function ArtworkModal({
               size="icon"
               onClick={() => navigate("prev")}
               disabled={currentIndex === 0}
-              className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-16 text-white bg-transparent hover:bg-transparent disabled:opacity-50 z-50"
+              className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-16 text-accent bg-transparent hover:bg-transparent hover:text-white disabled:opacity-50 z-50 transition-colors"
             >
               <ChevronLeft className="w-12 h-12" />
             </Button>
@@ -58,7 +62,7 @@ export function ArtworkModal({
               size="icon"
               onClick={() => navigate("next")}
               disabled={currentIndex === allArtworks.length - 1}
-              className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-16 text-white bg-transparent hover:bg-transparent disabled:opacity-50 z-50"
+              className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-16 text-accent bg-transparent hover:bg-transparent hover:text-white disabled:opacity-50 z-50 transition-colors"
             >
               <ChevronRight className="w-12 h-12" />
             </Button>

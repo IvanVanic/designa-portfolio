@@ -6,12 +6,7 @@
 "use client";
 
 import { useState, useMemo, useCallback } from "react";
-import {
-  Dialog,
-  DialogContent,
-  DialogHeader,
-  DialogTitle,
-} from "@/components/ui/dialog";
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { getUpcomingWorkshops, filterWorkshops, Workshop } from "@/lib/workshops";
 import { FilterBar } from "@/components/workshops/filter-bar";
 import { WorkshopCard } from "@/components/workshops/workshop-card";

@@ -32,7 +32,7 @@ export function WorkshopCard({ workshop, onSelect, className }: WorkshopCardProp
       )}
       onClick={() => onSelect(workshop)}
     >
-      <div className="bg-background-card h-full rounded-lg relative px-6 py-8">
+      <div className="bg-background-card h-full rounded-lg relative px-6 py-8 flex flex-col">
         <div className="flex gap-x-3 mb-3">
           <p className="text-sm text-accent font-medium capitalize">
             {workshop.type.replace("-", " ")}
@@ -47,7 +47,7 @@ export function WorkshopCard({ workshop, onSelect, className }: WorkshopCardProp
         </CardHeader>
 
         <CardContent className="p-0 flex-1 flex flex-col">
-          <p className="text-sm text-foreground/70 mb-8 h-10">{workshop.description}</p>
+          <p className="text-sm text-foreground/70 mb-8 flex-grow">{workshop.description}</p>
 
           {/* Workshop Details Grid */}
           <div className="grid grid-cols-2 gap-x-4 gap-y-6 mb-8">
