@@ -5,8 +5,8 @@
   "scripts": {
     "build": "next build",
     "open-next:build": "opennextjs-cloudflare build",
-    "deploy": "pnpm run open-next:build && pnpm wrangler deploy .open-next/worker.js --name designa-portfolio --compatibility-date 2024-01-01 --compatibility-flags nodejs_compat",
-    "preview": "pnpm run open-next:build && pnpm wrangler deploy .open-next/worker.js --name designa-portfolio-preview --compatibility-date 2024-01-01 --compatibility-flags nodejs_compat",
+    "deploy": "pnpm run open-next:build && pnpm wrangler deploy .open-next/worker.js --name designa-portfolio --compatibility-date 2024-09-23 --compatibility-flags nodejs_compat",
+    "preview": "pnpm run open-next:build && pnpm wrangler deploy .open-next/worker.js --name designa-portfolio-preview --compatibility-date 2024-09-23 --compatibility-flags nodejs_compat",
     "dev": "next dev",
     "lint": "next lint",
     "start": "next start"
