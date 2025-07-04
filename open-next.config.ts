@@ -1,16 +1,27 @@
 // open-next.config.ts
 const config = {
   default: {
-    // Cloudflare Workers configuration
-    platform: "cloudflare-workers",
-    // Build output directory
-    buildCommand: "pnpm run build",
-    // Output directory for the build
-    outputDirectory: ".open-next",
-    // Environment variables
-    env: {
-      NODE_ENV: "production",
+    override: {
+      wrapper: "cloudflare-node",
+      converter: "edge",
+      proxyExternalRequest: "fetch",
+      incrementalCache: "dummy",
+      tagCache: "dummy",
+      queue: "dummy",
+    },
+  },
+  edgeExternals: ["node:crypto"],
+  middleware: {
+    external: true,
+    override: {
+      wrapper: "cloudflare-edge",
+      converter: "edge",
+      proxyExternalRequest: "fetch",
+      incrementalCache: "dummy",
+      tagCache: "dummy",
+      queue: "dummy",
     },
   },
 };
+
 export default config;
