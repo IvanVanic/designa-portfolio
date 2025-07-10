@@ -91,8 +91,8 @@ export default function DesignaPortfolioClient() {
 
         <AboutSection />
         <WorkshopsPreviewSection />
-
-        <MentorshipSection />
+{/* 
+        <MentorshipSection /> */}
 
         <Footer />
       </div>
