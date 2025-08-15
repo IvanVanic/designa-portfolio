@@ -156,7 +156,7 @@ export function AnimatedBackground() {
       window.removeEventListener("resize", resize);
       if (animationRef.current) cancelAnimationFrame(animationRef.current);
     };
-  }, []);
+  }, [wavePhase]);
 
   // Create wave disturbance that flows past the mouse
   const wave1X = (mousePosition.x * 0.2 + Math.sin(wavePhase) * 0.15 + 0.4) * 100;

@@ -38,20 +38,19 @@ export function ArtworkModal({
   const hasNavigation = allArtworks.length > 1 && onNavigate;
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [mainImageLoaded, setMainImageLoaded] = useState(false);
-  const [prefetchedImages, setPrefetchedImages] = useState<string[]>([]);
-
   // All images including main image and sub-images
   const allImages = artwork ? [artwork.image, ...(artwork.subImages || [])] : [];
   const hasMultipleImages = allImages.length > 1;
 
-  const withVersion = (src: string) =>
-    artwork ? (src.includes("?") ? src : `${src}?v=${artwork.id}`) : src;
+  const withVersion = useCallback(
+    (src: string) => (artwork ? (src.includes("?") ? src : `${src}?v=${artwork.id}`) : src),
+    [artwork]
+  );
 
   // Reset image index when artwork changes
   useEffect(() => {
     setCurrentImageIndex(0);
     setMainImageLoaded(false);
-    setPrefetchedImages([]);
   }, [artwork?.id]);
 
   // start prefetching sub-images only after the main image has loaded
@@ -63,13 +62,17 @@ export function ArtworkModal({
       try {
         fetch(url, { signal: controllers[i].signal, cache: "force-cache" })
           .then(() => {
-            setPrefetchedImages((prev) => (prev.includes(url) ? prev : [...prev, url]));
+            // Prefetch successful
           })
-          .catch(() => {});
-      } catch {}
+          .catch(() => {
+            // Silently handle fetch errors
+          });
+      } catch {
+        // Silently handle fetch errors
+      }
     });
     return () => controllers.forEach((c) => c.abort());
-  }, [artwork?.id, mainImageLoaded]);
+  }, [artwork, mainImageLoaded, withVersion]);
 
   const navigate = useCallback(
     (direction: "prev" | "next") => {

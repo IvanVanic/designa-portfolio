@@ -11,7 +11,6 @@ import { cn } from "@/lib/utils";
 import { ThemeProvider } from "@/components/theme-provider";
 import { ErrorBoundary } from "@/components/error-boundary";
 import { AnimatedBackground } from "@/components/animated-background";
-import Link from "next/link";
 
 const sora = Sora({
   subsets: ["latin"],
