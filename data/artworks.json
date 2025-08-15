@@ -1,0 +1,406 @@
+[
+  {
+    "id": 1,
+    "title": "Character Concept - Mage",
+    "type": {
+      "name": "Digital 2D",
+      "id": 1
+    },
+    "image": "/gallery_artworks/image1_1.jpg",
+    "description": "Character concept for a client's game project,\n\nThe task was to create a mage based character that does not have usual signifiers of a mage.\nI had a lot of fun making this concept and I learned a lot from it!",
+    "tags": ["mage", "wizard", "character"],
+    "software": ["Photoshop"],
+    "artstationLink": "https://www.artstation.com/artwork/DLylXn",
+    "subImages": []
+  },
+  {
+    "id": 2,
+    "title": "Action shot",
+    "type": {
+      "name": "Digital 2D",
+      "id": 1
+    },
+    "image": "/gallery_artworks/image2_1.jpg",
+    "description": "Action shot of gameplay a concept done for a client.\n\nI combined photo bashing and painting techniques in grayscale, then added colors trough gradient maps and blending modes. Overpaint to connect everything together.",
+    "tags": ["NoAI"],
+    "software": ["Photoshop"],
+    "artstationLink": "https://www.artstation.com/artwork/Gv9rRQ",
+    "subImages": [
+      "/gallery_artworks/image2_2.jpg",
+      "/gallery_artworks/image2_3.jpg",
+      "/gallery_artworks/image2_4.jpg"
+    ]
+  },
+  {
+    "id": 3,
+    "title": "Semi realism concepts",
+    "type": {
+      "name": "Digital 2D",
+      "id": 1
+    },
+    "image": "/gallery_artworks/image3_1.jpg",
+    "description": "Art style exploration done for a client.\n\nThe setting is dark medieval world with hints of industrial revolution, color palette was inspired by Bekinski's art but darker and a bit desaturated.\n\nDone with photobashing and a paintover. Used Zbrush and Blender for some parts.",
+    "tags": ["NoAI"],
+    "software": ["ZBrush", "Blender", "Photoshop"],
+    "artstationLink": "https://www.artstation.com/artwork/XJ3mkD",
+    "subImages": ["/gallery_artworks/image3_2.jpg"]
+  },
+  {
+    "id": 4,
+    "title": "Alien Concept",
+    "type": {
+      "name": "Digital 2D",
+      "id": 1
+    },
+    "image": "/gallery_artworks/image4_1.jpg",
+    "description": "Sculpt and polypaint practice for final chapter of Nexttut's Zbrush course. \nI learned a lot and I really love the program now!\nThe task was to design our own alien. I took Alien the series and mushrooms for design reference.",
+    "tags": ["alien", "concept art", "game art"],
+    "software": ["ZBrush"],
+    "artstationLink": "https://www.artstation.com/artwork/L4mZ3P",
+    "subImages": ["/gallery_artworks/image4_2.jpg", "/gallery_artworks/image4_3.jpg"]
+  },
+  {
+    "id": 5,
+    "title": "Columns",
+    "type": {
+      "name": "Digital 3D",
+      "id": 2
+    },
+    "image": "/gallery_artworks/image5_1.jpg",
+    "description": "ZBrush practice, going trough Nexttut's ZBrush course to refresh my knowledge and learn a few new things!",
+    "tags": ["environment", "props", "gameart"],
+    "software": ["ZBrush"],
+    "artstationLink": "https://www.artstation.com/artwork/XJPWvY",
+    "subImages": ["/gallery_artworks/image5_2.jpg"]
+  },
+  {
+    "id": 6,
+    "title": "Minotaur Bust Sculpt",
+    "type": {
+      "name": "Digital 3D",
+      "id": 2
+    },
+    "image": "/gallery_artworks/image6_1.jpg",
+    "description": "A sculpt for practice, I'm slowly falling in love with Zbrush",
+    "tags": ["fantasy", "sculpt", "zbrush"],
+    "software": ["Blender", "ZBrush"],
+    "artstationLink": "https://www.artstation.com/artwork/EzqlZn",
+    "subImages": ["/gallery_artworks/image6_2.jpg", "/gallery_artworks/image6_3.jpg"]
+  },
+  {
+    "id": 7,
+    "title": "Dark Urge: Wine and Blood",
+    "type": {
+      "name": "Digital 2D",
+      "id": 1
+    },
+    "image": "/gallery_artworks/image7_1.jpg",
+    "description": "Ever since playing Baldur's Gate Dark Urge run, I had this idea in my brain, and I'm satisfied how it turned out, I can rest easily now.",
+    "tags": ["baldurs gate", "costum character", "dark urge"],
+    "artstationLink": "https://www.artstation.com/artwork/8bK03E",
+    "subImages": ["/gallery_artworks/image7_2.jpg", "/gallery_artworks/image7_3.jpg"]
+  },
+  {
+    "id": 8,
+    "title": "Underground science lab concept",
+    "type": {
+      "name": "Digital 2D",
+      "id": 1
+    },
+    "image": "/gallery_artworks/image8_1.jpg",
+    "description": "Concept done for Immunauts.\nThis was really fun to make, I got to make 2D sketch first then did a scene in 3D in Blender.",
+    "tags": ["laboratory", "concept art", "3d"],
+    "software": ["Photoshop", "Blender"],
+    "artstationLink": "https://www.artstation.com/artwork/xD5qDm",
+    "subImages": ["/gallery_artworks/image8_2.jpg"]
+  },
+  {
+    "id": 9,
+    "title": "Spaceship Submarine concepts",
+    "type": {
+      "name": "Digital 2D",
+      "id": 1
+    },
+    "image": "/gallery_artworks/image9_1.jpg",
+    "description": "Rough concepts done for project Immonauts",
+    "tags": ["NoAI", "gameart"],
+    "software": ["Photoshop"],
+    "artstationLink": "https://www.artstation.com/artwork/9EJ1NL",
+    "subImages": []
+  },
+  {
+    "id": 10,
+    "title": "Spyro the dragon",
+    "type": {
+      "name": "Digital 3D",
+      "id": 2
+    },
+    "image": "/gallery_artworks/image10_1.jpg",
+    "description": "Spyro the dragon sculpt made for fun in Zbrush.",
+    "tags": ["spyro", "gameart", "gameasset"],
+    "software": ["ZBrush"],
+    "artstationLink": "https://www.artstation.com/artwork/yDzYmO",
+    "subImages": ["/gallery_artworks/image10_2.jpg"]
+  },
+  {
+    "id": 11,
+    "title": "Feline Skull",
+    "type": "Illustration",
+    "image": "/gallery_artworks/image11_1.jpg",
+    "description": "Started learning Zbrush, it's pretty cool!",
+    "tags": ["NoAI", "gameart", "gameassets"],
+    "software": ["ZBrush"],
+    "artstationLink": "https://www.artstation.com/artwork/04vAJK",
+    "subImages": []
+  },
+  {
+    "id": 12,
+    "title": "Ark Fantastic - Environment",
+    "type": {
+      "name": "Digital 2D",
+      "id": 1
+    },
+    "image": "/gallery_artworks/image12_1.jpg",
+    "description": "Concepts and Illustrations I did for a game back in 2021-2022.\nI learned a lot about background design and adapting character designs for animation.\nYou can read more about the project here:\nhttps://www.tripthearkfantastic.com",
+    "tags": ["environment", "concept art", "NoAI"],
+    "software": ["Photoshop"],
+    "artstationLink": "https://www.artstation.com/artwork/xDVDV4",
+    "subImages": ["/gallery_artworks/image12_2.jpg"]
+  },
+  {
+    "id": 13,
+    "title": "Charles character sheet",
+    "type": {
+      "name": "Digital 2D",
+      "id": 1
+    },
+    "image": "/gallery_artworks/image13_1.jpg",
+    "description": "Concepts and Illustrations I did for a game back in 2021-2022.\nI learned a lot about background design and adapting character designs for animation.\nYou can read more about the project here:\nhttps://www.tripthearkfantastic.com",
+    "tags": ["character", "gameart", "charactersheet"],
+    "software": ["Photoshop"],
+    "artstationLink": "https://www.artstation.com/artwork/BXRXR6",
+    "subImages": []
+  },
+  {
+    "id": 14,
+    "title": "Fantasy dagger",
+    "type": {
+      "name": "Digital 3D",
+      "id": 2
+    },
+    "image": "/gallery_artworks/image14_1.jpg",
+    "description": "Wanted to practice more Warcraft style texturing on the weekend. Sculpted and modelled in Blender, textured in Substance Painter.\nDesign by Sean Dunny.",
+    "tags": ["warcraft", "worldofwarcraft", "fantasy"],
+    "software": ["Blender", "Substance 3D Painter"],
+    "artstationLink": "https://www.artstation.com/artwork/vDdQwO",
+    "subImages": []
+  },
+  {
+    "id": 15,
+    "title": "Orc",
+    "type": "Illustration",
+    "image": "/gallery_artworks/image15_1.jpg",
+    "description": "Mainly learned character sculpting in Blender and some modeling techniques with Grant Abbitt. I also learned that my PC is in critical need of an upgrade haha.\nI'd usually use substance painter for texturing, but  the course used Blender for texturing this time.\nThe model is not game-ready, it needs a proper retopo and optimization.",
+    "tags": ["character", "design", "gameart"],
+    "software": ["Blender"],
+    "artstationLink": "https://www.artstation.com/artwork/kQdwrl",
+    "subImages": ["/gallery_artworks/image15_2.jpg"]
+  },
+  {
+    "id": 16,
+    "title": "Shield",
+    "type": {
+      "name": "Digital 3D",
+      "id": 2
+    },
+    "image": "/gallery_artworks/image16_1.jpg",
+    "description": "A little modelling and texturing practice. Still needs a little optimising before it could be game ready.",
+    "tags": ["gameart", "gameasset", "gameready"],
+    "software": ["Blender", "Substance 3D Painter"],
+    "artstationLink": "https://www.artstation.com/artwork/QXZg68",
+    "subImages": []
+  },
+  {
+    "id": 17,
+    "title": "Viking Axe",
+    "type": {
+      "name": "Digital 3D",
+      "id": 2
+    },
+    "image": "/gallery_artworks/image17_1.jpg",
+    "description": "Viking axe from Grant Abbitt's tutorial I practiced along while ago.",
+    "tags": ["blender", "substancepainter", "gameasset"],
+    "software": ["Blender"],
+    "artstationLink": "https://www.artstation.com/artwork/0426kV",
+    "subImages": []
+  },
+  {
+    "id": 18,
+    "title": "Flirty Devil",
+    "type": {
+      "name": "Digital 3D",
+      "id": 2
+    },
+    "image": "/gallery_artworks/image18_1.jpg",
+    "description": "Sculpture based on a concept piece from Sasha Tudvaseva, with my own twist on the overall look.\nReally wanted to give sculpting a try, it took me about 4 hours on the weekend. \n\nSculpted and vertex painted in Blender.",
+    "tags": ["NoAI", "gameart", "gameasset"],
+    "software": ["Blender"],
+    "artstationLink": "https://www.artstation.com/artwork/29bNJA",
+    "subImages": []
+  },
+  {
+    "id": 19,
+    "title": "Stylized Viking Helmet",
+    "type": {
+      "name": "Digital 3D",
+      "id": 2
+    },
+    "image": "/gallery_artworks/image19_1.jpg",
+    "description": "I tried to make something stylized and game-ready without a tutorial this time, and also applied what I’ve learned in the past month in Substance painter and Blender to see gaps in my knowledge. Wanted to try hand painting as well! It was a lot of fun to make and I really enjoyed the process \n\nThe original design that was used as reference is Dmytro Dovgan’s! https://www.artstation.com/artwork/R15Or",
+    "tags": ["gameart", "gameasset", "gameready"],
+    "software": ["Blender", "Substance 3D Painter"],
+    "artstationLink": "https://www.artstation.com/artwork/VJ9Xrg",
+    "subImages": ["/gallery_artworks/image19_2.jpg", "/gallery_artworks/image19_3.jpg"]
+  },
+  {
+    "id": 20,
+    "title": "A.I.M-33",
+    "type": {
+      "name": "Digital 3D",
+      "id": 2
+    },
+    "image": "/gallery_artworks/image20_1.jpg",
+    "description": "Artificial Intelligence Maintenence machine, Model 33 (Or how I'd call them, Aimee)\nModeled in Blender and Textured in Substance for practice.",
+    "tags": ["robot", "gameasset", "prop"],
+    "software": ["Blender", "Substance 3D Painter"],
+    "artstationLink": "https://www.artstation.com/artwork/m8nG4Z",
+    "subImages": ["/gallery_artworks/image20_2.jpg"]
+  },
+  {
+    "id": 21,
+    "title": "Game Concepts - Ark Fantastic",
+    "type": "Illustration",
+    "image": "/gallery_artworks/image21_1.jpg",
+    "description": "Concepts and Illustrations I did for a game back in 2021-2022.\nI learned a lot about background design and adapting character designs for animation.\n\nYou can read more about the project here:\nhttps://www.tripthearkfantastic.com",
+    "tags": ["NoAI", "character", "design"],
+    "software": ["Photoshop"],
+    "artstationLink": "https://www.artstation.com/artwork/XgYL1y",
+    "subImages": [
+      "/gallery_artworks/image21_2.jpg",
+      "/gallery_artworks/image21_3.jpg",
+      "/gallery_artworks/image21_4.jpg",
+      "/gallery_artworks/image21_5.jpg",
+      "/gallery_artworks/image21_6.jpg"
+    ]
+  },
+  {
+    "id": 22,
+    "title": "Opera Game Concepts",
+    "type": {
+      "name": "Digital 2D",
+      "id": 1
+    },
+    "image": "/gallery_artworks/image22_1.jpg",
+    "description": "Concepts I made for a game for a client back in 2021.\nHad quite a lot of fun working on these stylized characters.",
+    "tags": ["gameart", "gameassets", "illustration"],
+    "software": ["Photoshop"],
+    "artstationLink": "https://www.artstation.com/artwork/BXJRok",
+    "subImages": ["/gallery_artworks/image22_2.jpg"]
+  },
+  {
+    "id": 23,
+    "title": "Backgrounds",
+    "type": {
+      "name": "Digital 2D",
+      "id": 1
+    },
+    "image": "/gallery_artworks/image23_1.jpg",
+    "description": "Process and final result of a background concept I worked on for a game.\nI learned a lot through this piece and it pushed my limits, but it was fun working on it nonetheless.",
+    "tags": ["game", "gameart", "background"],
+    "software": ["Photoshop"],
+    "artstationLink": "https://www.artstation.com/artwork/49qyWn",
+    "subImages": ["/gallery_artworks/image23_2.jpg"]
+  },
+  {
+    "id": 24,
+    "title": "Splash practice",
+    "type": {
+      "name": "Digital 2D",
+      "id": 1
+    },
+    "image": "/gallery_artworks/image24_1.jpg",
+    "description": "A gift for a friend, also practice",
+    "tags": ["gameart", "splash", "illustration"],
+    "software": ["Photoshop"],
+    "artstationLink": "https://www.artstation.com/artwork/RyBzRX",
+    "subImages": []
+  },
+  {
+    "id": 25,
+    "title": "Dualitatem",
+    "type": {
+      "name": "Digital 2D",
+      "id": 1
+    },
+    "image": "/gallery_artworks/image25_1.jpg",
+    "description": "Wanted to do a card-like illustration.",
+    "tags": ["illustration", "card", "gameart"],
+    "artstationLink": "https://www.artstation.com/artwork/zO832L",
+    "subImages": ["/gallery_artworks/image25_2.jpg", "/gallery_artworks/image25_3.jpg"]
+  },
+  {
+    "id": 26,
+    "title": "Ghost Fish",
+    "type": {
+      "name": "Digital 2D",
+      "id": 1
+    },
+    "image": "/gallery_artworks/image26_1.jpg",
+    "description": "A little color exercise I did",
+    "tags": ["illustration", "gameart"],
+    "artstationLink": "https://www.artstation.com/artwork/R3b9by",
+    "subImages": ["/gallery_artworks/image26_2.jpg", "/gallery_artworks/image26_3.jpg"]
+  },
+  {
+    "id": 27,
+    "title": "Elf Archer",
+    "type": {
+      "name": "Digital 2D",
+      "id": 1
+    },
+    "image": "/gallery_artworks/image27_1.jpg",
+    "description": "Elf Archer with a magical bow concept",
+    "tags": ["elf", "archer", "video game art"],
+    "software": ["Photoshop"],
+    "artstationLink": "https://www.artstation.com/artwork/VgbmoP",
+    "subImages": []
+  },
+  {
+    "id": 28,
+    "title": "Undead Rogue",
+    "type": {
+      "name": "Digital 2D",
+      "id": 1
+    },
+    "image": "/gallery_artworks/image28_1.jpg",
+    "description": "A gift for someone I care deeply for. This is his rogue main from the game World of Warcraft.",
+    "tags": ["wow", "warcraft", "worldofwarcraft"],
+    "software": ["Photoshop"],
+    "artstationLink": "https://www.artstation.com/artwork/QrG4Al",
+    "subImages": []
+  },
+  {
+    "id": 29,
+    "title": "Destiny 2 Titan",
+    "type": {
+      "name": "Digital 2D",
+      "id": 1
+    },
+    "image": "/gallery_artworks/image29_1.jpg",
+    "description": "What does it mean to be a Titan?\n\nAs a Titan, you are a part of the city - in a way no Warlock or hunter could ever understand.\nThe dream of the city rests upon our shoulders. So has it ever been with the Sunbreakers. \nThe Hammer of Sol is a flame in the darkness. But fire burns without thought. \n\nMy Titan - Alexandria. c: Accumulation of what I've learned in past few weeks.\n\nDestiny the game belongs to Bungie",
+    "tags": ["bungie", "destiny", "destiny 2"],
+    "software": ["Photoshop", "Krita"],
+    "artstationLink": "https://www.artstation.com/artwork/L3Z16P",
+    "subImages": []
+  }
+]

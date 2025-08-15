@@ -1,0 +1,1058 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Mobile landscape responsiveness fixes */
+@media (orientation: landscape) and (max-width: 768px) {
+  /* Reduce mobile modal image heights in landscape */
+  .mobile-modal-image-primary {
+    height: 40vh;
+  }
+
+  .mobile-modal-image-secondary {
+    height: 30vh;
+  }
+
+  /* Ensure mobile modal content is scrollable in landscape */
+  .mobile-modal-content {
+    max-height: 85vh;
+    overflow-y: auto;
+  }
+
+  /* Adjust gallery cards for landscape */
+  .gallery-card-mobile {
+    aspect-ratio: 4/3;
+  }
+
+  /* Ensure safe area padding for landscape notches */
+  .safe-area-padding-bottom {
+    padding-bottom: max(1rem, env(safe-area-inset-bottom));
+  }
+}
+
+body {
+  font-family: "Sora", -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu",
+    "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+  cursor: none;
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+}
+
+@layer base {
+  :root {
+    /* Designa palette from provided image */
+    /* Base colors */
+    --background: 180 72% 6%; /* #041919 */
+    --foreground: 180 100% 95%; /* #E5FFFF */
+    --card: 180 40% 10%; /* slightly lighter than background */
+    --card-foreground: 180 100% 95%;
+    --popover: 180 40% 10%;
+    --popover-foreground: 180 100% 95%;
+    --primary: 180 100% 95%;
+    --primary-foreground: 180 72% 6%;
+
+    /* Accents (two teals) */
+    --accent: 174 84% 42%; /* #10C9B7 */
+    --accent-foreground: 180 72% 6%;
+    --secondary: 171 98% 36%; /* #02B3A2 */
+    --secondary-foreground: 180 72% 6%;
+
+    /* Muted and borders */
+    --muted: 180 25% 18%;
+    --muted-foreground: 180 40% 80%;
+    --border: 180 20% 22%;
+    --input: 180 22% 12%;
+    --ring: 174 84% 42%;
+    --radius: 0.75rem;
+
+    /* Shadows */
+    --shadow-glow: 0 0 20px rgba(16, 201, 183, 0.3);
+    --shadow-card: 0 10px 30px rgba(0, 0, 0, 0.35);
+
+    /* Sidebar (compat) */
+    --sidebar-background: 180 72% 6%;
+    --sidebar-foreground: 180 100% 95%;
+    --sidebar-primary: 174 84% 42%;
+    --sidebar-primary-foreground: 180 72% 6%;
+    --sidebar-accent: 180 25% 12%;
+    --sidebar-accent-foreground: 180 100% 95%;
+    --sidebar-border: 180 20% 22%;
+    --sidebar-ring: 174 84% 42%;
+  }
+
+  .dark {
+    /* Same palette in dark mode */
+    --background: 180 72% 6%;
+    --foreground: 180 100% 95%;
+    --card: 180 40% 10%;
+    --card-foreground: 180 100% 95%;
+    --popover: 180 40% 10%;
+    --popover-foreground: 180 100% 95%;
+    --primary: 180 100% 95%;
+    --primary-foreground: 180 72% 6%;
+    --secondary: 171 98% 36%;
+    --secondary-foreground: 180 72% 6%;
+    --muted: 180 25% 18%;
+    --muted-foreground: 180 40% 80%;
+    --accent: 174 84% 42%;
+    --accent-foreground: 180 72% 6%;
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 180 100% 95%;
+    --border: 180 20% 22%;
+    --input: 180 22% 12%;
+    --ring: 174 84% 42%;
+    --chart-1: 180 70% 45%;
+    --chart-2: 171 60% 40%;
+    --chart-3: 200 70% 45%;
+    --chart-4: 160 55% 40%;
+    --chart-5: 190 65% 50%;
+    --sidebar-background: 180 72% 6%;
+    --sidebar-foreground: 180 100% 95%;
+    --sidebar-primary: 174 84% 42%;
+    --sidebar-primary-foreground: 180 72% 6%;
+    --sidebar-accent: 180 25% 12%;
+    --sidebar-accent-foreground: 180 100% 95%;
+    --sidebar-border: 180 20% 22%;
+    --sidebar-ring: 174 84% 42%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+
+  /* Hide default cursor */
+  *,
+  *::before,
+  *::after {
+    cursor: none !important;
+  }
+
+  /* Native smooth scroll behavior */
+  html {
+    scroll-behavior: smooth;
+  }
+
+  /* Gaming-style scrollbar */
+  ::-webkit-scrollbar {
+    width: 8px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: hsl(var(--muted));
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: hsl(var(--accent));
+    border-radius: 4px;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: hsl(var(--accent) / 0.8);
+  }
+}
+
+/* Enhanced gaming-style animations */
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Gaming Loading Screen Animations */
+@keyframes glitch-1 {
+  0%,
+  100% {
+    transform: translate(0, 0) scale(1);
+  }
+  10% {
+    transform: translate(-2px, 1px) scale(1.02);
+  }
+  20% {
+    transform: translate(1px, -1px) scale(0.98);
+  }
+  30% {
+    transform: translate(-1px, 2px) scale(1.01);
+  }
+  40% {
+    transform: translate(2px, 1px) scale(0.99);
+  }
+  50% {
+    transform: translate(-2px, -1px) scale(1.02);
+  }
+  60% {
+    transform: translate(1px, 2px) scale(0.98);
+  }
+  70% {
+    transform: translate(-1px, -2px) scale(1.01);
+  }
+  80% {
+    transform: translate(2px, -1px) scale(0.99);
+  }
+  90% {
+    transform: translate(-1px, 1px) scale(1.02);
+  }
+}
+
+/* Subtle RGB split (no jitter) */
+@keyframes rgbSplit {
+  0%,
+  100% {
+    text-shadow: 0.8px 0 rgba(255, 59, 59, 0.35), -0.8px 0 rgba(0, 255, 255, 0.35);
+  }
+  50% {
+    text-shadow: 1.6px 0 rgba(255, 59, 59, 0.45), -1.6px 0 rgba(0, 255, 255, 0.45);
+  }
+}
+
+@keyframes glitch-2 {
+  0%,
+  100% {
+    clip-path: inset(0);
+    transform: translate(0);
+  }
+  10% {
+    clip-path: inset(0 0 90% 0);
+    transform: translate(-3px, 0);
+  }
+  20% {
+    clip-path: inset(80% 0 0 0);
+    transform: translate(3px, 0);
+  }
+  30% {
+    clip-path: inset(50% 0 30% 0);
+    transform: translate(-2px, 0);
+  }
+  40% {
+    clip-path: inset(20% 0 60% 0);
+    transform: translate(2px, 0);
+  }
+  50% {
+    clip-path: inset(70% 0 10% 0);
+    transform: translate(-3px, 0);
+  }
+}
+
+@keyframes glitch-3 {
+  0%,
+  100% {
+    clip-path: inset(0);
+    transform: translate(0);
+  }
+  15% {
+    clip-path: inset(90% 0 0 0);
+    transform: translate(2px, 0);
+  }
+  25% {
+    clip-path: inset(0 0 85% 0);
+    transform: translate(-2px, 0);
+  }
+  35% {
+    clip-path: inset(40% 0 40% 0);
+    transform: translate(3px, 0);
+  }
+  45% {
+    clip-path: inset(60% 0 20% 0);
+    transform: translate(-1px, 0);
+  }
+  55% {
+    clip-path: inset(10% 0 70% 0);
+    transform: translate(2px, 0);
+  }
+}
+
+@keyframes scan-down {
+  0% {
+    transform: translateY(-100vh);
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(100vh);
+    opacity: 0;
+  }
+}
+
+@keyframes scan-up {
+  0% {
+    transform: translateY(100vh);
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(-100vh);
+    opacity: 0;
+  }
+}
+
+@keyframes slide-right {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(200%);
+  }
+}
+
+@keyframes galleryCardSlideIn {
+  from {
+    opacity: 0;
+    transform: translateY(60px) translateX(var(--offset-x, 0)) scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) translateX(0) scale(1);
+  }
+}
+
+@keyframes modalSlideIn {
+  from {
+    opacity: 0;
+    transform: scale(0.8) translateY(40px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+@keyframes glowPulse {
+  0%,
+  100% {
+    box-shadow: 0 0 3px rgba(0, 255, 255, 0.2);
+  }
+  50% {
+    box-shadow: 0 0 8px rgba(0, 255, 255, 0.35);
+  }
+}
+
+@keyframes inputFocus {
+  from {
+    transform: scale(1);
+    box-shadow: 0 0 0 0 rgba(0, 255, 255, 0);
+  }
+  to {
+    transform: scale(1.01);
+    box-shadow: 0 0 8px 0 rgba(0, 255, 255, 0.15);
+  }
+}
+
+@keyframes buttonHover {
+  from {
+    transform: translateY(0) scale(1);
+    box-shadow: 0 2px 8px rgba(0, 255, 255, 0.15);
+  }
+  to {
+    transform: translateY(-2px) scale(1.01);
+    box-shadow: 0 4px 15px rgba(0, 255, 255, 0.25);
+  }
+}
+
+@keyframes textGlow {
+  0%,
+  100% {
+    text-shadow: 0 0 3px rgba(0, 255, 255, 0.3);
+  }
+  50% {
+    text-shadow: 0 0 8px rgba(0, 255, 255, 0.5);
+  }
+}
+
+@keyframes borderGlow {
+  0%,
+  100% {
+    border-color: rgba(0, 255, 255, 0.2);
+    box-shadow: 0 0 3px rgba(0, 255, 255, 0.15);
+  }
+  50% {
+    border-color: rgba(0, 255, 255, 0.4);
+    box-shadow: 0 0 8px rgba(0, 255, 255, 0.25);
+  }
+}
+
+/* Breathing and alive atmosphere animations */
+@keyframes breathe {
+  0%,
+  100% {
+    transform: scale(1);
+    opacity: 0.8;
+  }
+  50% {
+    transform: scale(1.02);
+    opacity: 1;
+  }
+}
+
+@keyframes float {
+  0%,
+  100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+@keyframes gentleGlow {
+  0%,
+  100% {
+    box-shadow: 0 0 2px rgba(0, 255, 255, 0.1);
+  }
+  50% {
+    box-shadow: 0 0 6px rgba(0, 255, 255, 0.2);
+  }
+}
+
+@keyframes subtlePulse {
+  0%,
+  100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.01);
+  }
+}
+
+@keyframes backgroundBreath {
+  0%,
+  100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+}
+
+/* Natural upward flowing particle animations with enhanced parallax effect */
+@keyframes flowUpSlow {
+  0% {
+    transform: translateY(100vh) translateX(0px) scale(0.8);
+    opacity: 0;
+  }
+  10% {
+    opacity: 0.8;
+  }
+  50% {
+    transform: translateY(50vh) translateX(40px) scale(1.2);
+  }
+  90% {
+    opacity: 0.8;
+  }
+  100% {
+    transform: translateY(-100vh) translateX(80px) scale(0.6);
+    opacity: 0;
+  }
+}
+
+@keyframes flowUpMedium {
+  0% {
+    transform: translateY(100vh) translateX(0px) scale(1);
+    opacity: 0;
+  }
+  15% {
+    opacity: 0.6;
+  }
+  50% {
+    transform: translateY(50vh) translateX(-30px) scale(1.1);
+  }
+  85% {
+    opacity: 0.6;
+  }
+  100% {
+    transform: translateY(-100vh) translateX(-60px) scale(0.8);
+    opacity: 0;
+  }
+}
+
+@keyframes flowUpFast {
+  0% {
+    transform: translateY(100vh) translateX(0px) scale(1.2);
+    opacity: 0;
+  }
+  20% {
+    opacity: 0.4;
+  }
+  50% {
+    transform: translateY(50vh) translateX(25px) scale(0.9);
+  }
+  80% {
+    opacity: 0.4;
+  }
+  100% {
+    transform: translateY(-100vh) translateX(50px) scale(1.4);
+    opacity: 0;
+  }
+}
+
+@keyframes gentleFloatUp {
+  0% {
+    transform: translateY(0px) translateX(0px);
+  }
+  25% {
+    transform: translateY(-5px) translateX(2px);
+  }
+  50% {
+    transform: translateY(-10px) translateX(0px);
+  }
+  75% {
+    transform: translateY(-5px) translateX(-2px);
+  }
+  100% {
+    transform: translateY(0px) translateX(0px);
+  }
+}
+
+/* Enhanced utility classes */
+.text-shadow-sm {
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+}
+
+.text-shadow {
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.6);
+}
+
+.text-shadow-lg {
+  text-shadow: 0 4px 8px rgba(0, 0, 0, 0.7);
+}
+
+.text-shadow-glow {
+  text-shadow: 0 0 3px rgba(0, 255, 255, 0.3), 0 0 6px rgba(0, 255, 255, 0.2),
+    0 0 9px rgba(0, 255, 255, 0.1);
+}
+
+.drop-shadow-glow {
+  filter: drop-shadow(0 0 4px rgba(0, 255, 255, 0.2));
+}
+
+.shadow-glow-sm {
+  box-shadow: 0 0 6px rgba(0, 255, 255, 0.15);
+}
+
+.shadow-glow-md {
+  box-shadow: 0 0 10px rgba(0, 255, 255, 0.2);
+}
+
+.shadow-glow-lg {
+  box-shadow: 0 0 15px rgba(0, 255, 255, 0.25);
+}
+
+.gaming-button {
+  @apply transition-all duration-500 ease-out;
+}
+
+.gaming-button:hover {
+  animation: buttonHover 0.3s ease-out forwards;
+}
+
+.gaming-border {
+  border: 2px solid rgba(0, 255, 255, 0.3);
+  transition: all 0.3s ease-out;
+}
+
+.gaming-border:hover {
+  animation: borderGlow 1s ease-in-out infinite;
+}
+
+.animate-shimmer {
+  animation: shimmer 2s ease-in-out infinite;
+}
+
+.animate-fadeInUp {
+  animation: fadeInUp 0.6s ease-out forwards;
+  opacity: 0;
+}
+
+.animate-fadeIn {
+  animation: fadeIn 0.8s ease-out forwards;
+}
+
+.animate-glow-pulse {
+  animation: glowPulse 2s ease-in-out infinite;
+}
+
+.animate-text-glow {
+  animation: textGlow 2s ease-in-out infinite;
+}
+
+.animate-glitch-1 {
+  animation: glitch-1 3s ease-in-out infinite;
+}
+
+.animate-glitch-2 {
+  animation: glitch-2 2.5s ease-in-out infinite;
+}
+
+.animate-glitch-3 {
+  animation: glitch-3 2.8s ease-in-out infinite;
+}
+
+/* Utility for RGB split text without shaking */
+.rgb-split {
+  position: relative;
+}
+
+.rgb-split::before,
+.rgb-split::after {
+  content: attr(data-text);
+  position: absolute;
+  left: 0;
+  top: 0;
+  pointer-events: none;
+}
+
+.rgb-split::before {
+  color: rgba(255, 59, 59, 0.5);
+  transform: translateX(1px);
+}
+
+.rgb-split::after {
+  color: rgba(0, 255, 255, 0.5);
+  transform: translateX(-1px);
+}
+
+.rgb-split-animate {
+  animation: rgbSplit 2.6s ease-in-out infinite;
+}
+
+.animate-scan-down {
+  animation: scan-down 4s ease-in-out infinite;
+}
+
+.animate-scan-up {
+  animation: scan-up 4s ease-in-out infinite;
+}
+
+.animate-slide-right {
+  animation: slide-right 2s ease-in-out infinite;
+}
+
+.animate-breathe {
+  animation: breathe 4s ease-in-out infinite;
+}
+
+.animate-float {
+  animation: float 3s ease-in-out infinite;
+}
+
+.animate-gentle-glow {
+  animation: gentleGlow 3s ease-in-out infinite;
+}
+
+.animate-subtle-pulse {
+  animation: subtlePulse 2s ease-in-out infinite;
+}
+
+.animate-background-breath {
+  animation: backgroundBreath 8s ease-in-out infinite;
+}
+
+.animate-flow-up-slow {
+  animation: flowUpSlow 35s linear infinite;
+}
+
+.animate-flow-up-medium {
+  animation: flowUpMedium 25s linear infinite;
+}
+
+.animate-flow-up-fast {
+  animation: flowUpFast 18s linear infinite;
+}
+
+.animate-gentle-float-up {
+  animation: gentleFloatUp 6s ease-in-out infinite;
+}
+
+/* Navbar specific styles */
+.origin-right {
+  transform-origin: right center;
+}
+
+.gallery-card-animate {
+  animation: galleryCardSlideIn 0.8s ease-out forwards;
+  opacity: 0;
+}
+
+.modal-animate {
+  animation: modalSlideIn 0.5s ease-out forwards;
+}
+
+.gallery-card-animate:nth-child(1) {
+  --offset-x: -30px;
+}
+.gallery-card-animate:nth-child(2) {
+  --offset-x: 0px;
+}
+.gallery-card-animate:nth-child(3) {
+  --offset-x: 30px;
+}
+.gallery-card-animate:nth-child(4) {
+  --offset-x: -30px;
+}
+.gallery-card-animate:nth-child(5) {
+  --offset-x: 0px;
+}
+.gallery-card-animate:nth-child(6) {
+  --offset-x: 30px;
+}
+
+/* Animation delays */
+.animation-delay-0 {
+  animation-delay: 0ms;
+}
+.animation-delay-100 {
+  animation-delay: 100ms;
+}
+.animation-delay-200 {
+  animation-delay: 200ms;
+}
+.animation-delay-300 {
+  animation-delay: 300ms;
+}
+.animation-delay-500 {
+  animation-delay: 500ms;
+}
+.animation-delay-1000 {
+  animation-delay: 1000ms;
+}
+.animation-delay-1500 {
+  animation-delay: 1500ms;
+}
+.animation-delay-2000 {
+  animation-delay: 2000ms;
+}
+.animation-delay-2500 {
+  animation-delay: 2500ms;
+}
+.animation-delay-3000 {
+  animation-delay: 3000ms;
+}
+.animation-delay-3500 {
+  animation-delay: 3500ms;
+}
+.animation-delay-4000 {
+  animation-delay: 4000ms;
+}
+.animation-delay-5000 {
+  animation-delay: 5000ms;
+}
+
+/* Enhanced focus and hover states */
+input:focus,
+textarea:focus,
+button:focus-visible {
+  outline: 2px solid rgba(0, 255, 255, 0.5);
+  outline-offset: 2px;
+  animation: inputFocus 0.3s ease-out forwards;
+}
+
+.gaming-hover {
+  transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.gaming-hover:hover {
+  transform: translateY(-2px) scale(1.02);
+  filter: brightness(1.1);
+}
+
+/* Improved group hover states */
+.group:hover .group-hover\:animate-pulse {
+  animation: pulse 1s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+.group:hover .group-hover\:translate-x-1 {
+  transform: translateX(0.25rem);
+}
+
+@keyframes calendarSlideIn {
+  from {
+    opacity: 0;
+    transform: translateY(-20px) scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.calendar-animate {
+  animation: calendarSlideIn 0.4s ease-out forwards;
+}
+
+/* Workshop card specific animations */
+.workshop-card {
+  transition: all 0.7s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.workshop-card:hover {
+  transform: translateY(-4px) scale(1.02);
+  box-shadow: 0 15px 30px rgba(0, 255, 255, 0.1);
+}
+
+/* Rounded gaming style borders */
+.rounded-gaming {
+  border-radius: 0.75rem;
+}
+
+/* Mobile-specific optimizations */
+@media (max-width: 768px) {
+  /* Reduce motion for mobile devices to improve performance */
+  @media (prefers-reduced-motion: reduce) {
+    * {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+
+  /* Optimize animations for mobile */
+  .gaming-hover {
+    transition: transform 0.3s ease-out, box-shadow 0.3s ease-out;
+  }
+
+  .gaming-hover:hover {
+    transform: translateY(-2px) scale(1.02);
+  }
+
+  /* Mobile-friendly card animations */
+  .gallery-card-animate {
+    animation: slideInUp 0.6s ease-out forwards;
+  }
+
+  .workshop-card-animate {
+    animation: slideInUp 0.6s ease-out forwards;
+  }
+
+  /* Reduce complex animations on mobile */
+  .glitch-1,
+  .glitch-2,
+  .glitch-3 {
+    animation-duration: 1s;
+  }
+
+  /* Mobile touch targets */
+  button,
+  a,
+  [role="button"] {
+    min-height: 44px;
+    min-width: 44px;
+  }
+
+  /* Optimize shadows for mobile */
+  .shadow-glow-sm {
+    box-shadow: 0 0 10px rgba(0, 255, 255, 0.2);
+  }
+
+  .shadow-glow-md {
+    box-shadow: 0 0 15px rgba(0, 255, 255, 0.3);
+  }
+
+  .shadow-glow-lg {
+    box-shadow: 0 0 20px rgba(0, 255, 255, 0.4);
+  }
+
+  /* Mobile-specific cursor adjustments */
+  .cursor-none {
+    cursor: pointer !important;
+  }
+
+  /* Optimize text shadows for mobile */
+  .text-shadow-glow {
+    text-shadow: 0 0 10px rgba(0, 255, 255, 0.5);
+  }
+
+  .text-shadow-lg {
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+  }
+
+  /* Mobile keyboard adjustments */
+  input:focus,
+  textarea:focus {
+    transform: none !important;
+    zoom: 1 !important;
+  }
+
+  /* Prevent zoom on input focus */
+  input[type="text"],
+  input[type="email"],
+  input[type="tel"],
+  input[type="password"],
+  textarea,
+  select {
+    font-size: 16px !important;
+  }
+
+  /* Mobile-specific spacing */
+  .animate-in {
+    animation-duration: 0.5s;
+  }
+
+  /* Optimize backdrop blur for mobile */
+  .backdrop-blur-sm {
+    backdrop-filter: blur(4px);
+  }
+
+  .backdrop-blur-lg {
+    backdrop-filter: blur(8px);
+  }
+}
+
+/* Mobile landscape optimizations */
+@media (max-width: 768px) and (orientation: landscape) {
+  /* Reduce heights for landscape mode */
+  .min-h-screen {
+    min-height: 100vh;
+  }
+
+  /* Optimize navigation for landscape */
+  .mobile-nav-content {
+    height: 100vh;
+    overflow-y: auto;
+  }
+}
+
+/* High DPI mobile screens */
+@media (max-width: 768px) and (-webkit-min-device-pixel-ratio: 2) {
+  /* Optimize for retina displays */
+  .shadow-glow-sm {
+    box-shadow: 0 0 5px rgba(0, 255, 255, 0.3);
+  }
+
+  .shadow-glow-md {
+    box-shadow: 0 0 10px rgba(0, 255, 255, 0.4);
+  }
+
+  .shadow-glow-lg {
+    box-shadow: 0 0 15px rgba(0, 255, 255, 0.5);
+  }
+}
+
+/* Touch device optimizations */
+@media (hover: none) and (pointer: coarse) {
+  /* Remove hover effects for touch devices */
+  .gaming-hover:hover {
+    transform: none;
+    box-shadow: none;
+  }
+
+  /* Optimize touch interactions */
+  .group:hover .group-hover\:scale-105 {
+    transform: none;
+  }
+
+  .group:hover .group-hover\:animate-pulse {
+    animation: none;
+  }
+
+  /* Keep essential hover states for touch */
+  .group:active .group-hover\:scale-105 {
+    transform: scale(1.02);
+  }
+
+  .group:active .group-hover\:animate-pulse {
+    animation: pulse 0.3s ease-out;
+  }
+}
+
+/* Mobile-specific keyframes */
+@keyframes slideInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes mobileGlow {
+  0%,
+  100% {
+    box-shadow: 0 0 5px rgba(0, 255, 255, 0.3);
+  }
+  50% {
+    box-shadow: 0 0 15px rgba(0, 255, 255, 0.6);
+  }
+}
+
+/* Mobile modal optimizations */
+@media (max-width: 768px) {
+  .modal-content {
+    max-height: 90vh;
+    overflow-y: auto;
+  }
+
+  .modal-header {
+    position: sticky;
+    top: 0;
+    z-index: 10;
+  }
+
+  .modal-footer {
+    position: sticky;
+    bottom: 0;
+    z-index: 10;
+  }
+}
+
+/* Performance optimizations */
+@media (max-width: 768px) {
+  /* Use transform for better performance */
+  .hover\:scale-105:hover {
+    transform: scale(1.02);
+  }
+
+  .hover\:-translate-y-2:hover {
+    transform: translateY(-2px);
+  }
+
+  /* Optimize will-change for mobile */
+  .gaming-hover,
+  .group:hover *,
+  .animate-in {
+    will-change: transform, opacity;
+  }
+
+  /* Remove will-change after animation */
+  .gaming-hover:not(:hover),
+  .group:not(:hover) *,
+  .animate-in.animation-complete {
+    will-change: auto;
+  }
+}
