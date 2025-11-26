@@ -1,50 +1,34 @@
 # Designa Portfolio
 
-This is a personal portfolio project for a designer, built with Next.js and TypeScript. It showcases the designer's work, provides information about their services, and includes a contact form.
+A personal portfolio site for showcasing game art, character designs, and digital artwork.
 
-## Technologies Used
+## Tech Stack
 
-- **Framework**: [Next.js](https://nextjs.org/)
-- **Language**: [TypeScript](https://www.typescriptlang.org/)
-- **Styling**: [Tailwind CSS](https://tailwindcss.com/)
-- **UI Components**: [shadcn/ui](https://ui.shadcn.com/)
-- **Form Management**: [React Hook Form](https://react-hook-form.com/)
-- **Schema Validation**: [Zod](https://zod.dev/)
+- Next.js 14 (App Router)
+- TypeScript
+- Tailwind CSS
+- shadcn/ui components
+- Embla Carousel
 
 ## Getting Started
 
-To get a local copy up and running, follow these simple steps.
-
-### Prerequisites
-
-Make sure you have [Node.js](https://nodejs.org/en/) and [pnpm](https://pnpm.io/) installed.
-
-### Installation
-
-1. Clone the repo
-   ```sh
-   git clone https://github.com/IvanVanic/designa-portfolio.git
-   ```
-2. Install NPM packages
-   ```sh
-   pnpm install
-   ```
-
-### Running the Application
-
-To run the application in development mode, use the following command:
-
-```sh
+```bash
+pnpm install
 pnpm dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000) to view the site.
 
-## Available Scripts
+## Build
 
-In the project directory, you can run:
+```bash
+pnpm build
+```
 
-- `pnpm dev`: Runs the app in the development mode.
-- `pnpm build`: Builds the app for production to the `build` folder.
-- `pnpm start`: Starts the production server.
-- `pnpm lint`: Lints the project files.
+## Features
+
+- Responsive gallery with artwork modal
+- Swipeable image carousel on mobile
+- Keyboard navigation support
+- Workshop listings
+- Contact form

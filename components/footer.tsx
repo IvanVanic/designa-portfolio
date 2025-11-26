@@ -14,13 +14,13 @@ export function Footer() {
   const currentYear = new Date().getFullYear();
 
   return (
-    <footer className="border-t border-border/20 text-foreground py-16 px-4 sm:px-6 lg:px-8 bg-transparent">
+    <footer className="border-t border-border/20 text-foreground py-16 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-background to-[#030b0d]">
       <div className="max-w-7xl mx-auto">
         {/* Main footer content */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 items-center">
           {/* Left side - Branding */}
           <div className="flex flex-col items-center md:items-start">
-            <div className="mb-4 hidden sm:block">
+            <div className="hidden sm:block">
               <div className="relative w-48 h-8">
                 <Image
                   src="/brand/designa-wordmark.svg"
@@ -33,14 +33,19 @@ export function Footer() {
             </div>
           </div>
 
+          {/* Center - Copyright */}
+          <div className="text-center order-last md:order-none">
+            <p className="text-muted-foreground text-sm">© {currentYear} Designa. All Rights Reserved.</p>
+          </div>
+
           {/* Right side - Social Links */}
-          <div className="flex flex-col items-center md:items-end">
-            <div className="flex space-x-8 mt-4 md:justify-end">
+          <div className="flex justify-center md:justify-end">
+            <div className="flex space-x-6">
               <a
                 href={EXTERNAL_LINKS.artstation}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-12 h-12 bg-accent/10 hover:bg-accent/20 border border-accent/30 hover:border-accent/50 rounded-gaming flex items-center justify-center text-accent hover:text-accent transition-all duration-300 cursor-none gaming-hover shadow-glow-sm hover:shadow-glow-md"
+                className="w-12 h-12 flex items-center justify-center text-white hover:text-white transition-all duration-300 cursor-none hover:scale-110 hover:drop-shadow-[0_0_8px_rgba(255,255,255,0.6)]"
                 title="ArtStation - @pingini"
                 aria-label="ArtStation"
               >
@@ -50,7 +55,7 @@ export function Footer() {
                 href={EXTERNAL_LINKS.instagram}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-12 h-12 bg-accent/10 hover:bg-accent/20 border border-accent/30 hover:border-accent/50 rounded-gaming flex items-center justify-center text-accent hover:text-accent transition-all duration-300 cursor-none gaming-hover shadow-glow-sm hover:shadow-glow-md"
+                className="w-12 h-12 flex items-center justify-center text-white hover:text-white transition-all duration-300 cursor-none hover:scale-110 hover:drop-shadow-[0_0_8px_rgba(255,255,255,0.6)]"
                 title="Instagram - @shrimply_ghostie"
                 aria-label="Instagram"
               >
@@ -60,7 +65,7 @@ export function Footer() {
                 href={EXTERNAL_LINKS.tiktok}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-12 h-12 bg-accent/10 hover:bg-accent/20 border border-accent/30 hover:border-accent/50 rounded-gaming flex items-center justify-center text-accent hover:text-accent transition-all duration-300 cursor-none gaming-hover shadow-glow-sm hover:shadow-glow-md"
+                className="w-12 h-12 flex items-center justify-center text-white hover:text-white transition-all duration-300 cursor-none hover:scale-110 hover:drop-shadow-[0_0_8px_rgba(255,255,255,0.6)]"
                 title="TikTok - @shrimplyghostie"
                 aria-label="TikTok"
               >
@@ -68,11 +73,6 @@ export function Footer() {
               </a>
             </div>
           </div>
-        </div>
-
-        {/* Copyright - Center bottom */}
-        <div className="pt-8 border-t border-border/20 text-center">
-          <p className="text-muted-foreground">© {currentYear} Designa. All Rights Reserved.</p>
         </div>
       </div>
     </footer>

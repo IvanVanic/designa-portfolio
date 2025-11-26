@@ -125,11 +125,16 @@ export function AboutSection() {
                 About Designa
               </h2>
 
-              <p className="text-base md:text-lg text-foreground/80 mb-8 lg:mb-12 leading-relaxed">
-                We are a passionate team of artists and designers dedicated to creating exceptional
-                game art. Our expertise spans across multiple disciplines, bringing your gaming
-                vision to life with stunning visuals that captivate and engage players.
-              </p>
+              <div className="space-y-4 text-base md:text-lg text-foreground/80 mb-8 lg:mb-12 leading-relaxed">
+                <p>
+                  We are a passionate team of artists and designers dedicated to creating exceptional
+                  game art.
+                </p>
+                <p>
+                  Our expertise spans multiple disciplines, and with a personalized approach to every
+                  project, we work closely with you to bring your vision to life exactly as you imagined.
+                </p>
+              </div>
 
               {/* Social Links */}
               <div className="space-y-4">

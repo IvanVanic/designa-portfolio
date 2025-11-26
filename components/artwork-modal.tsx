@@ -14,6 +14,12 @@ import Image from "next/image";
 import { cn } from "@/lib/utils";
 import { Artwork } from "@/types";
 import { VisuallyHidden } from "@radix-ui/react-visually-hidden";
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  type CarouselApi,
+} from "@/components/ui/carousel";
 
 // software icon mapping (reserved for future use)
 
@@ -38,6 +44,8 @@ export function ArtworkModal({
   const hasNavigation = allArtworks.length > 1 && onNavigate;
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [mainImageLoaded, setMainImageLoaded] = useState(false);
+  const [carouselApi, setCarouselApi] = useState<CarouselApi>();
+  const [mobileCarouselIndex, setMobileCarouselIndex] = useState(0);
   // All images including main image and sub-images
   const allImages = artwork ? [artwork.image, ...(artwork.subImages || [])] : [];
   const hasMultipleImages = allImages.length > 1;
@@ -50,8 +58,27 @@ export function ArtworkModal({
   // Reset image index when artwork changes
   useEffect(() => {
     setCurrentImageIndex(0);
+    setMobileCarouselIndex(0);
     setMainImageLoaded(false);
-  }, [artwork?.id]);
+    // Reset carousel to first slide when artwork changes
+    if (carouselApi) {
+      carouselApi.scrollTo(0);
+    }
+  }, [artwork?.id, carouselApi]);
+
+  // Sync carousel index with state
+  useEffect(() => {
+    if (!carouselApi) return;
+
+    const onSelect = () => {
+      setMobileCarouselIndex(carouselApi.selectedScrollSnap());
+    };
+
+    carouselApi.on("select", onSelect);
+    return () => {
+      carouselApi.off("select", onSelect);
+    };
+  }, [carouselApi]);
 
   // start prefetching sub-images only after the main image has loaded
   useEffect(() => {
@@ -73,6 +100,24 @@ export function ArtworkModal({
     });
     return () => controllers.forEach((c) => c.abort());
   }, [artwork, mainImageLoaded, withVersion]);
+
+  // Keyboard navigation for desktop
+  useEffect(() => {
+    if (!isOpen || isMobile) return;
+
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "ArrowLeft" && onNavigate && currentIndex > 0) {
+        e.preventDefault();
+        onNavigate("prev");
+      } else if (e.key === "ArrowRight" && onNavigate && currentIndex < allArtworks.length - 1) {
+        e.preventDefault();
+        onNavigate("next");
+      }
+    };
+
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, [isOpen, isMobile, onNavigate, currentIndex, allArtworks.length]);
 
   const navigate = useCallback(
     (direction: "prev" | "next") => {
@@ -126,55 +171,81 @@ export function ArtworkModal({
               )}
               key={artwork.id}
             >
-              {/* Close button */}
+              {/* Close button - high contrast for visibility */}
               <Button
                 variant="ghost"
                 size="icon"
                 onClick={onClose}
-                className="fixed top-3 right-3 md:absolute md:top-3 md:right-3 z-[70] text-white hover:text-accent transition-colors bg-black/30 hover:bg-black/40 backdrop-blur-sm rounded-full md:bg-transparent md:hover:bg-transparent md:backdrop-blur-0 md:rounded-none md:hover:text-accent focus-visible:ring-2 focus-visible:ring-accent/60"
+                className={cn(
+                  "z-[70] transition-all duration-200 focus-visible:ring-2 focus-visible:ring-accent/60",
+                  // Mobile: fixed position with solid dark background
+                  "fixed top-4 right-4 w-10 h-10 rounded-full",
+                  "bg-black/70 hover:bg-black/90 backdrop-blur-md shadow-lg",
+                  "text-white hover:text-accent",
+                  // Desktop: positioned inside card, more subtle
+                  "md:absolute md:top-4 md:right-4 md:w-9 md:h-9",
+                  "md:bg-black/40 md:hover:bg-black/60"
+                )}
               >
-                <X className="w-5 h-5 md:w-6 md:h-6 md:hover:drop-shadow-[0_0_10px_rgba(45,212,191,0.7)]" />
+                <X className="w-5 h-5" />
               </Button>
 
               {/* Responsive body */}
               {isMobile ? (
                 <div className="flex h-full flex-col overflow-y-auto min-h-0 mobile-modal-content">
-                  {/* Images stacked */}
-                  <div className="bg-muted/30">
-                    {allImages.map((image, index) => (
-                      <div
-                        key={`${artwork.id}-${image}-${index}`}
-                        className={cn(
-                          "relative w-full",
-                          index === 0
-                            ? "h-[48vh] mobile-modal-image-primary"
-                            : "h-[36vh] mobile-modal-image-secondary"
-                        )}
-                      >
-                        <Image
-                          src={withVersion(image)}
-                          alt={`${artwork.title} ${index + 1}`}
-                          fill
-                          className="object-contain"
-                          sizes="95vw"
-                          loading={index === 0 ? "eager" : "lazy"}
-                        />
+                  {/* Swipeable Image Carousel */}
+                  <div className="relative bg-muted/30 flex-shrink-0">
+                    <Carousel
+                      setApi={setCarouselApi}
+                      opts={{
+                        align: "start",
+                        loop: hasMultipleImages,
+                      }}
+                      className="w-full"
+                    >
+                      <CarouselContent className="-ml-0">
+                        {allImages.map((image, index) => (
+                          <CarouselItem key={`${artwork.id}-${image}-${index}`} className="pl-0">
+                            <div className="relative w-full aspect-[4/5]">
+                              <Image
+                                src={withVersion(image)}
+                                alt={`${artwork.title} ${index + 1}`}
+                                fill
+                                className="object-contain"
+                                sizes="95vw"
+                                priority={index === 0}
+                                loading={index === 0 ? "eager" : "lazy"}
+                                onLoad={index === 0 ? () => setMainImageLoaded(true) : undefined}
+                              />
+                            </div>
+                          </CarouselItem>
+                        ))}
+                      </CarouselContent>
+                    </Carousel>
+
+                    {/* Image Counter Overlay */}
+                    {hasMultipleImages && (
+                      <div className="absolute bottom-4 left-1/2 -translate-x-1/2 bg-black/70 backdrop-blur-md px-4 py-2 rounded-full shadow-lg">
+                        <span className="text-white text-sm font-semibold tracking-wide">
+                          {mobileCarouselIndex + 1} / {allImages.length}
+                        </span>
                       </div>
-                    ))}
+                    )}
                   </div>
 
-                  {/* Content below images - add bottom padding for fixed navigation */}
-                  <div className="px-5 py-6 pb-24 bg-background" id="artwork-details-bottom">
-                    <h2 className="text-xl font-bold mb-2">{artwork.title}</h2>
-                    <p className="text-foreground/80 mb-5 text-sm leading-relaxed">
+                  {/* Content below carousel - improved spacing and typography */}
+                  <div className="px-5 pt-5 pb-28 bg-background flex-1" id="artwork-details-bottom">
+                    {/* Title with accent underline */}
+                    <h2 className="text-2xl font-bold mb-3 text-foreground">{artwork.title}</h2>
+                    <p className="text-foreground/70 mb-6 text-sm leading-relaxed">
                       {artwork.description}
                     </p>
 
-                    <div className="mb-4">
-                      <span className="text-xs text-foreground/60 uppercase tracking-wide font-semibold">
+                    <div className="mb-5 pb-4 border-b border-white/5">
+                      <span className="text-xs text-accent/80 uppercase tracking-wider font-semibold">
                         MEDIUM
                       </span>
-                      <p className="text-foreground/80 text-sm">
+                      <p className="text-foreground/90 text-sm mt-1">
                         {typeof artwork.type === "string"
                           ? artwork.type
                           : artwork.type?.name || "Unknown"}
@@ -182,11 +253,11 @@ export function ArtworkModal({
                     </div>
 
                     {artwork.software && artwork.software.length > 0 && (
-                      <div className="mb-5">
-                        <h3 className="text-xs uppercase tracking-wide font-semibold mb-2 text-foreground/60">
+                      <div className="mb-6 pb-4 border-b border-white/5">
+                        <h3 className="text-xs uppercase tracking-wider font-semibold mb-1 text-accent/80">
                           SOFTWARE USED
                         </h3>
-                        <p className="text-foreground/80 text-sm">{artwork.software.join(", ")}</p>
+                        <p className="text-foreground/90 text-sm mt-1">{artwork.software.join(", ")}</p>
                       </div>
                     )}
 
@@ -195,40 +266,43 @@ export function ArtworkModal({
                         href={artwork.artstationLink}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="inline-flex items-center gap-2 text-accent hover:text-accent/80 text-sm transition-colors border border-accent/30 px-3 py-2 rounded-lg hover:bg-accent/10"
+                        className="inline-flex items-center gap-2 text-accent hover:text-accent/80 text-sm font-medium transition-colors border border-accent/40 px-4 py-2.5 rounded-lg hover:bg-accent/10"
                         aria-label={`open artstation for ${artwork.title}`}
                       >
                         <ExternalLink className="w-4 h-4" />
                         View on ArtStation
                       </a>
                     )}
-
-                    {/* Mobile navigation buttons - fixed bottom bar */}
-                    {hasNavigation && (
-                      <div className="fixed bottom-0 left-0 right-0 p-4 bg-background/95 backdrop-blur-sm border-t border-white/10 flex justify-between items-center safe-area-padding-bottom">
-                        <Button
-                          variant="outline"
-                          size="default"
-                          onClick={() => navigate("prev")}
-                          disabled={currentIndex === 0}
-                          className="text-white border-white/30 hover:bg-white/10 hover:text-white min-w-[100px]"
-                        >
-                          <ChevronLeft className="w-4 h-4 mr-2" />
-                          Prev
-                        </Button>
-                        <Button
-                          variant="outline"
-                          size="default"
-                          onClick={() => navigate("next")}
-                          disabled={currentIndex === allArtworks.length - 1}
-                          className="text-white border-white/30 hover:bg-white/10 hover:text-white min-w-[100px]"
-                        >
-                          Next
-                          <ChevronRight className="w-4 h-4 ml-2" />
-                        </Button>
-                      </div>
-                    )}
                   </div>
+
+                  {/* Mobile navigation buttons - refined bottom bar */}
+                  {hasNavigation && (
+                    <div className="fixed bottom-0 left-0 right-0 px-4 py-3 bg-background/90 backdrop-blur-md border-t border-white/10 flex justify-between items-center safe-area-padding-bottom z-[65]">
+                      <Button
+                        variant="outline"
+                        size="sm"
+                        onClick={() => navigate("prev")}
+                        disabled={currentIndex === 0}
+                        className="text-white/90 border-white/20 hover:bg-white/10 hover:text-white hover:border-white/30 min-w-[90px] h-9 disabled:opacity-40"
+                      >
+                        <ChevronLeft className="w-4 h-4 mr-1" />
+                        Prev
+                      </Button>
+                      <span className="text-foreground/60 text-xs font-medium">
+                        {currentIndex + 1} / {allArtworks.length}
+                      </span>
+                      <Button
+                        variant="outline"
+                        size="sm"
+                        onClick={() => navigate("next")}
+                        disabled={currentIndex === allArtworks.length - 1}
+                        className="text-white/90 border-white/20 hover:bg-white/10 hover:text-white hover:border-white/30 min-w-[90px] h-9 disabled:opacity-40"
+                      >
+                        Next
+                        <ChevronRight className="w-4 h-4 ml-1" />
+                      </Button>
+                    </div>
+                  )}
                 </div>
               ) : (
                 <div className="grid grid-cols-1 lg:grid-cols-[1.5fr,1fr] h-full">
@@ -241,7 +315,7 @@ export function ArtworkModal({
                       )}
                       <Image
                         key={`${artwork.id}-${currentImageIndex}`}
-                        src={withVersion(allImages[currentImageIndex] || "/placeholder.svg")}
+                        src={withVersion(allImages[currentImageIndex] || "/gallery-placeholder-1.png")}
                         alt={`${artwork.title} artwork`}
                         fill
                         className={cn(
@@ -251,7 +325,6 @@ export function ArtworkModal({
                         sizes="50vw"
                         priority
                         onLoad={() => setMainImageLoaded(true)}
-                        onLoadingComplete={() => setMainImageLoaded(true)}
                       />
                     </div>
 
@@ -356,32 +429,56 @@ export function ArtworkModal({
             </div>
           </div>
 
-          {/* Artwork Navigation - below card but inside portal */}
+          {/* Desktop Artwork Navigation - Side Arrows */}
           {hasNavigation && !isMobile && (
-            <div className="flex items-center justify-center mt-5">
-              <div className="flex gap-2">
-                <Button
-                  variant="outline"
-                  size="sm"
-                  onClick={() => navigate("prev")}
-                  disabled={currentIndex === 0}
-                  className="text-white border-white/30 hover:bg-white/10 hover:text-white"
-                >
-                  <ChevronLeft className="w-4 h-4 mr-1" />
-                  Prev
-                </Button>
-                <Button
-                  variant="outline"
-                  size="sm"
-                  onClick={() => navigate("next")}
-                  disabled={currentIndex === allArtworks.length - 1}
-                  className="text-white border-white/30 hover:bg-white/10 hover:text-white"
-                >
-                  Next
-                  <ChevronRight className="w-4 h-4 ml-1" />
-                </Button>
+            <>
+              {/* Previous Button - Left Side */}
+              <Button
+                variant="ghost"
+                size="icon"
+                onClick={() => navigate("prev")}
+                disabled={currentIndex === 0}
+                className={cn(
+                  "absolute left-2 lg:left-4 top-1/2 -translate-y-1/2 z-[60]",
+                  "w-12 h-12 rounded-full",
+                  "bg-black/40 hover:bg-black/60 backdrop-blur-sm",
+                  "text-white/80 hover:text-white",
+                  "transition-all duration-200",
+                  "disabled:opacity-30 disabled:pointer-events-none",
+                  "hover:scale-110"
+                )}
+                aria-label="Previous artwork"
+              >
+                <ChevronLeft className="w-6 h-6" />
+              </Button>
+
+              {/* Next Button - Right Side */}
+              <Button
+                variant="ghost"
+                size="icon"
+                onClick={() => navigate("next")}
+                disabled={currentIndex === allArtworks.length - 1}
+                className={cn(
+                  "absolute right-2 lg:right-4 top-1/2 -translate-y-1/2 z-[60]",
+                  "w-12 h-12 rounded-full",
+                  "bg-black/40 hover:bg-black/60 backdrop-blur-sm",
+                  "text-white/80 hover:text-white",
+                  "transition-all duration-200",
+                  "disabled:opacity-30 disabled:pointer-events-none",
+                  "hover:scale-110"
+                )}
+                aria-label="Next artwork"
+              >
+                <ChevronRight className="w-6 h-6" />
+              </Button>
+
+              {/* Artwork Counter - Bottom Center */}
+              <div className="absolute bottom-4 left-1/2 -translate-x-1/2 z-[60]">
+                <span className="bg-black/50 backdrop-blur-sm text-white/80 text-sm px-3 py-1.5 rounded-full">
+                  {currentIndex + 1} / {allArtworks.length}
+                </span>
               </div>
-            </div>
+            </>
           )}
         </DialogContent>
       </Dialog>
